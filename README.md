@@ -21,10 +21,13 @@ Buka `http://localhost:5173` di browser.
 
 Untuk menggunakan fitur login dengan Google:
 
+**📖 Lihat panduan lengkap:** [FIREBASE_SETUP.md](FIREBASE_SETUP.md) atau [FIREBASE_CONFIG_MAPPING.md](FIREBASE_CONFIG_MAPPING.md)
+
+**Quick setup:**
 1. Buat project di [Firebase Console](https://console.firebase.google.com)
 2. Aktifkan Google Authentication di Authentication > Sign-in methods
 3. Copy Firebase config dari Project Settings > Your apps
-4. Buat file `.env.local` di root project dan isi dengan Firebase credentials:
+4. Buat/edit file `.env.local` di root project:
 
 ```env
 VITE_FIREBASE_API_KEY=your_api_key
@@ -35,7 +38,11 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
 ```
 
+5. Restart dev server: `npm run dev`
+
 Lihat `.env.example` untuk template lengkap.
+
+**⚠️ Penting:** Jangan commit `.env.local` ke Git! File ini sudah di-`.gitignore`.
 
 Build untuk production (opsional, tidak wajib untuk demo lomba):
 

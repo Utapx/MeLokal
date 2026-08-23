@@ -1,13 +1,13 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { LogIn, AlertCircle } from 'lucide-react'
+import { LogIn, AlertCircle, Info } from 'lucide-react'
 import Button from '../components/Button'
 
 export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, loginWithGoogle } = useAuth()
+  const { user, loginWithGoogle, firebaseReady } = useAuth()
   const [error, setError] = React.useState('')
   const [loading, setLoading] = React.useState(false)
 
@@ -24,7 +24,8 @@ export default function Login() {
     try {
       await loginWithGoogle()
     } catch (err) {
-      setError(err.message || 'Gagal login dengan Google')
+      const errorMsg = err.message || 'Gagal login dengan Google'
+      setError(errorMsg)
     } finally {
       setLoading(false)
     }
@@ -42,18 +43,32 @@ export default function Login() {
             <p className="text-ink-soft">Masuk untuk menyimpan petualangan Anda</p>
           </div>
 
+          {/* Firebase Not Configured Warning */}
+          {!firebaseReady && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex gap-3">
+              <Info size={20} className="text-yellow-600 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-yellow-600">
+                <p className="font-semibold mb-1">Firebase belum dikonfigurasi</p>
+                <p className="text-xs">Setup Firebase di .env.local untuk mengaktifkan Google login. Saat ini fitur login tidak tersedia.</p>
+              </div>
+            </div>
+          )}
+
           {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex gap-3">
               <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-red-600">{error}</p>
+              <div className="text-sm text-red-600">
+                <p className="font-semibold mb-1">Error Login</p>
+                <p className="text-xs">{error}</p>
+              </div>
             </div>
           )}
 
           {/* Google Login Button */}
           <button
             onClick={handleGoogleLogin}
-            disabled={loading}
+            disabled={loading || !firebaseReady}
             className="w-full bg-white border-2 border-ink rounded-xl py-3 px-4 font-semibold text-ink hover:bg-ink hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
@@ -97,20 +112,37 @@ export default function Login() {
           </div>
 
           {/* Info Text */}
-          <div className="bg-turmeric-light rounded-lg p-4 space-y-2">
-            <p className="text-sm text-ink font-semibold flex items-center gap-2">
-              <LogIn size={16} />
-              Demo Login
-            </p>
-            <p className="text-xs text-ink-soft">
-              Gunakan akun Google apa saja untuk login. Akun pertama akan menjadi admin.
-            </p>
-          </div>
+          {firebaseReady ? (
+            <div className="bg-turmeric-light rounded-lg p-4 space-y-2">
+              <p className="text-sm text-ink font-semibold flex items-center gap-2">
+                <LogIn size={16} />
+                Siap Login
+              </p>
+              <p className="text-xs text-ink-soft">
+                Gunakan akun Google Anda untuk login. Pastikan email terdaftar di sistem.
+              </p>
+            </div>
+          ) : (
+            <div className="bg-ink-soft/10 rounded-lg p-4 space-y-3">
+              <p className="text-sm text-ink font-semibold">Cara Setup Firebase</p>
+              <ol className="text-xs text-ink-soft space-y-2 list-decimal list-inside">
+                <li>Buat project di <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" className="text-sawah-dark underline">Firebase Console</a></li>
+                <li>Aktifkan Google Authentication</li>
+                <li>Copy credentials ke <code className="bg-white px-1 py-0.5 rounded">.env.local</code></li>
+                <li>Restart dev server</li>
+              </ol>
+            </div>
+          )}
 
           {/* Footer */}
           <p className="text-xs text-ink-soft text-center">
             Dengan login, Anda menyetujui Kebijakan Privasi kami
           </p>
+
+          {/* Back Home Button */}
+          <Button to="/" variant="secondary" className="w-full">
+            ← Kembali ke Beranda
+          </Button>
         </div>
       </div>
     </div>
