@@ -17,6 +17,26 @@ npm run dev
 
 Buka `http://localhost:5173` di browser.
 
+### Setup Firebase untuk Authentication (Opsional)
+
+Untuk menggunakan fitur login dengan Google:
+
+1. Buat project di [Firebase Console](https://console.firebase.google.com)
+2. Aktifkan Google Authentication di Authentication > Sign-in methods
+3. Copy Firebase config dari Project Settings > Your apps
+4. Buat file `.env.local` di root project dan isi dengan Firebase credentials:
+
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+```
+
+Lihat `.env.example` untuk template lengkap.
+
 Build untuk production (opsional, tidak wajib untuk demo lomba):
 
 ```bash
@@ -31,7 +51,8 @@ npm run preview
 - **React Router** — routing antar halaman
 - **Leaflet + OpenStreetMap** — peta interaktif (gratis, tanpa API key)
 - **lucide-react** — icon set
-- **localStorage** — penyimpanan Favorites & Saved Journey (tanpa login/database)
+- **Firebase + Google Auth** — authentication & login dengan Google
+- **localStorage** — penyimpanan Favorites & Saved Journey
 
 Semua data destinasi, tempat, dan tips berasal dari **local JSON** di `src/data/`
 — tidak ada database server maupun backend custom.
@@ -41,12 +62,14 @@ Semua data destinasi, tempat, dan tips berasal dari **local JSON** di `src/data/
 ```
 src/
 ├── components/     # Navbar, Footer, Button, Badge, Card, Modal, MapView, dll (reusable)
+├── config/         # firebase.js - konfigurasi Firebase
+├── context/        # AuthContext.jsx - context untuk authentication
 ├── data/           # destinations.js, places.js, tips.js — semua data statis
-├── pages/          # Home, Explore, Destination, MapPage, Planner, Favorites, About
+├── pages/          # Home, Explore, Destination, MapPage, Planner, Favorites, About, Login, AdminPanel, UserPanel
 ├── utils/
 │   ├── planner.js  # algoritma rule-based Trip Planner (bukan AI API)
 │   └── storage.js  # wrapper localStorage untuk Favorites & Saved Journey
-├── App.jsx         # routing
+├── App.jsx         # routing dengan AuthProvider
 └── main.jsx        # entry point
 ```
 
@@ -57,7 +80,10 @@ src/
 3. **Local Map** (`/map/:slug`) — peta Leaflet interaktif dengan marker per kategori + filter
 4. **Live Like A Local** — kartu highlight di landing page per destinasi
 5. **Smart Trip Planner** (`/plan`) — generator itinerary rule-based berdasarkan durasi, budget, minat
-6. **Favorites** (`/favorites`) — tempat & itinerary tersimpan via localStorage, tanpa login
+6. **Favorites** (`/favorites`) — tempat & itinerary tersimpan via localStorage
+7. **Google Authentication** (`/login`) — login dengan Google untuk akses User Panel & Admin Panel
+8. **User Panel** (`/profile`) — dashboard pengguna untuk mengelola favorit dan perjalanan tersimpan
+9. **Admin Panel** (`/admin`) — dashboard admin (untuk user dengan email tertentu) untuk mengelola sistem
 
 ## Alur Demo yang Disarankan (< 5 menit)
 
@@ -79,10 +105,13 @@ Landing Page
   untuk simulasi konsep lomba, bukan hasil riset lapangan real-time. Sebelum
   submission final, pertimbangkan mengganti foto (`picsum.photos` seed placeholder)
   dengan foto asli destinasi agar lebih meyakinkan saat dipresentasikan.
-- **Tidak ada backend/database/login** sesuai ketentuan project — semua fitur
-  berjalan penuh di sisi client (frontend-only), cukup dijalankan dengan `npm run dev`.
+- **Firebase configuration bersifat opsional** — aplikasi dapat berjalan tanpa Firebase,
+  namun fitur login dan admin panel memerlukan Firebase setup. Untuk demo tanpa
+  setup Firebase, semua fitur lain tetap berfungsi normal.
 - Struktur data di `src/data/` sengaja dibuat modular sehingga mudah ditambah
   (misalnya menambah destinasi ke-5) tanpa mengubah komponen/halaman.
+- **Admin emails** dapat dikonfigurasi di `src/context/AuthContext.jsx` pada
+  array `adminEmails` untuk mengatur siapa saja yang memiliki akses ke Admin Panel.
 
 ## Lisensi
 
