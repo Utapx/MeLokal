@@ -1,6 +1,7 @@
 // Rule-based itinerary generator — TIDAK menggunakan AI API,
 // murni logika IF/ELSE + scoring sederhana di atas data lokal statis.
 import { getPlacesByDestination } from '../data/places.js'
+import { getDestinationBySlug } from '../data/destinations.js'
 
 // Peta minat pengguna -> kategori tempat yang relevan
 const INTEREST_TO_CATEGORY = {
@@ -53,17 +54,57 @@ function scorePlace(place, interestCategories, budget) {
   return score
 }
 
-function pickPlaceForSlot({ category, allPlaces, interestCategories, budget, usedIdsToday }) {
+function distanceKm(from, to) {
+  const earthRadiusKm = 6371
+  const latDelta = ((to.lat - from.lat) * Math.PI) / 180
+  const lngDelta = ((to.lng - from.lng) * Math.PI) / 180
+  const fromLat = (from.lat * Math.PI) / 180
+  const toLat = (to.lat * Math.PI) / 180
+  const haversine =
+    Math.sin(latDelta / 2) ** 2 +
+    Math.sin(lngDelta / 2) ** 2 * Math.cos(fromLat) * Math.cos(toLat)
+
+  return earthRadiusKm * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine))
+}
+
+function pickPlaceForSlot({
+  category,
+  allPlaces,
+  interestCategories,
+  budget,
+  usedIdsToday,
+  currentPoint,
+}) {
   const candidates = allPlaces.filter((p) => p.category === category)
   if (candidates.length === 0) return null
 
   const unused = candidates.filter((p) => !usedIdsToday.has(p.id))
   const pool = unused.length > 0 ? unused : candidates // reuse jika kehabisan opsi unik
 
-  const ranked = [...pool].sort(
-    (a, b) => scorePlace(b, interestCategories, budget) - scorePlace(a, interestCategories, budget)
-  )
-  return ranked[0]
+  const ranked = [...pool].sort((a, b) => {
+    const scoreDifference =
+      scorePlace(b, interestCategories, budget) - scorePlace(a, interestCategories, budget)
+    const distanceDifference = distanceKm(currentPoint, a) - distanceKm(currentPoint, b)
+
+    // Score remains the priority, while distance breaks close calls between places.
+    return scoreDifference || distanceDifference
+  })
+  return {
+    place: ranked[0],
+    alternatives: ranked.slice(1, 4),
+  }
+}
+
+export function recalculateRouteDistances(slots, startPoint) {
+  let currentPoint = startPoint
+
+  return slots.map((slot) => {
+    if (!slot.place) return { ...slot, distanceFromPrevious: null }
+
+    const distanceFromPrevious = distanceKm(currentPoint, slot.place)
+    currentPoint = slot.place
+    return { ...slot, distanceFromPrevious }
+  })
 }
 
 /**
@@ -72,30 +113,43 @@ function pickPlaceForSlot({ category, allPlaces, interestCategories, budget, use
  * @param {number} days - 1..5
  * @param {'hemat'|'medium'|'premium'} budget
  * @param {string[]} interests - subset of keys INTEREST_TO_CATEGORY
+ * @param {{lat: number, lng: number, label?: string}} [startPoint]
  */
-export function generateItinerary(destinationSlug, days, budget, interests) {
-  const allPlaces = getPlacesByDestination(destinationSlug)
+export function generateItinerary(destinationSlug, days, budget, interests, startPoint, placesOverride) {
+  const allPlaces = placesOverride || getPlacesByDestination(destinationSlug)
   const interestCategories = interests.map((i) => INTEREST_TO_CATEGORY[i]).filter(Boolean)
+  const destination = getDestinationBySlug(destinationSlug)
+  const routeStart = startPoint || { ...destination.center, label: `Pusat kota ${destination.name}` }
 
   const dayPlans = []
 
   for (let dayIndex = 0; dayIndex < days; dayIndex++) {
     const template = dayIndex % 2 === 0 ? TEMPLATE_A : TEMPLATE_B
     const usedIdsToday = new Set()
+    let currentPoint = routeStart
 
     const slots = template.map((slot) => {
-      const place = pickPlaceForSlot({
+      const selection = pickPlaceForSlot({
         category: slot.category,
         allPlaces,
         interestCategories,
         budget,
         usedIdsToday,
+        currentPoint,
       })
+      const place = selection?.place || null
       if (place) usedIdsToday.add(place.id)
-      return { ...slot, place }
+      const distanceFromPrevious = place ? distanceKm(currentPoint, place) : null
+      if (place) currentPoint = place
+      return { ...slot, place, alternatives: selection?.alternatives || [], distanceFromPrevious }
     })
 
-    dayPlans.push({ dayNumber: dayIndex + 1, slots })
+    dayPlans.push({
+      dayNumber: dayIndex + 1,
+      startPoint: routeStart,
+      totalDistanceKm: slots.reduce((total, slot) => total + (slot.distanceFromPrevious || 0), 0),
+      slots,
+    })
   }
 
   return {
@@ -103,6 +157,7 @@ export function generateItinerary(destinationSlug, days, budget, interests) {
     days,
     budget,
     interests,
+    startPoint: routeStart,
     generatedAt: new Date().toISOString(),
     dayPlans,
   }
