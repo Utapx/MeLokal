@@ -19,7 +19,7 @@ function NotFound() {
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
       <p className="text-6xl mb-4">🧭</p>
       <h1 className="text-2xl font-display font-semibold text-ink">Halaman tidak ditemukan</h1>
-      <p className="text-ink-soft mt-2">Sepertinya kamu tersesat dari rute yang tersedia.</p>
+      <p className="text-ink-soft mt-2">Kamu tersesat dari rute MeLokal. Coba kembali ke beranda.</p>
     </div>
   )
 }

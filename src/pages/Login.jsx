@@ -39,8 +39,8 @@ export default function Login() {
           {/* Header */}
           <div className="text-center space-y-2">
             <p className="text-5xl">🧭</p>
-            <h1 className="font-display text-3xl font-semibold text-ink">Jadi Lokal</h1>
-            <p className="text-ink-soft">Masuk untuk menyimpan petualangan Anda</p>
+            <h1 className="font-display text-3xl font-semibold text-ink">MeLokal</h1>
+            <p className="text-ink-soft">Masuk untuk menyimpan petualangan lokal kamu</p>
           </div>
 
           {/* Firebase Not Configured Warning */}

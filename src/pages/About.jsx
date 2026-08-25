@@ -8,7 +8,7 @@ export default function About() {
     <div>
       <div className="bg-sawah text-white py-20 px-6 md:px-12 text-center">
         <Compass size={36} className="text-turmeric mx-auto mb-4" />
-        <h1 className="font-display text-4xl font-semibold">Tentang Jadi Lokal</h1>
+        <h1 className="font-display text-4xl font-semibold">Tentang MeLokal</h1>
         <p className="text-white/85 mt-3 max-w-xl mx-auto italic">
           &ldquo;Datang sebagai turis, pulang dengan pengalaman seperti warga lokal.&rdquo;
         </p>
@@ -20,7 +20,7 @@ export default function About() {
       >
         <p className="text-ink-soft max-w-2xl">
           Kebanyakan platform wisata menjawab pertanyaan &ldquo;apa yang bisa dikunjungi?&rdquo;.
-          Jadi Lokal dibangun untuk menjawab pertanyaan yang lebih dalam: &ldquo;bagaimana cara
+          MeLokal dibangun untuk menjawab pertanyaan yang lebih dalam: &ldquo;bagaimana cara
           memahami dan menjalani kehidupan di daerah ini seperti warga lokal?&rdquo; — mulai dari
           bahasa sehari-hari, kebiasaan, transportasi, harga wajar, hingga etika yang tidak
           tertulis di buku panduan wisata manapun.
@@ -57,7 +57,7 @@ export default function About() {
       <Section eyebrow="Catatan" title="Status project ini">
         <div className="bg-turmeric-light rounded-2xl p-6 max-w-2xl">
           <p className="text-sm text-ink-soft">
-            Jadi Lokal adalah <strong className="text-ink">prototype/fungsional website</strong>{' '}
+            MeLokal adalah <strong className="text-ink">prototype/fungsional website</strong>{' '}
             yang dikembangkan untuk keperluan perlombaan pengembangan website mahasiswa. Seluruh
             data destinasi, tempat, harga, dan Local Score pada website ini merupakan data contoh
             (demo) untuk simulasi konsep — bukan hasil riset lapangan real-time maupun direktori
@@ -68,7 +68,7 @@ export default function About() {
 
       <Section className="text-center">
         <h2 className="font-display text-2xl md:text-3xl font-semibold text-ink mb-4">
-          Siap mulai jadi lokal?
+          Siap mulai merasakan jadi lokal?
         </h2>
         <Button to="/explore" variant="secondary">Explore Indonesia</Button>
       </Section>

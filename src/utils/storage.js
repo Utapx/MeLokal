@@ -1,6 +1,6 @@
 // Wrapper sederhana di atas localStorage — tidak butuh backend/database.
-const FAVORITES_KEY = 'jadilokal_favorites'
-const JOURNEYS_KEY = 'jadilokal_journeys'
+const FAVORITES_KEY = 'melokal_favorites'
+const JOURNEYS_KEY = 'melokal_journeys'
 
 function readJSON(key, fallback) {
   try {
@@ -73,12 +73,12 @@ export function downloadJourney(journey, destinationName) {
     })
     .join('')
 
-  const html = `<!doctype html><html lang="id"><head><meta charset="utf-8"><title>Jadi Lokal - ${escapeHtml(destinationName)}</title><style>body{font-family:Arial,sans-serif;max-width:760px;margin:40px auto;line-height:1.5;color:#241c15}h1{color:#2f6b4f}section{border-top:1px solid #ddd;padding:16px 0}li{margin:12px 0}small{color:#4a3f35}</style></head><body><h1>Jadi Lokal: ${escapeHtml(destinationName)}</h1><p>${journey.days} hari · Budget ${escapeHtml(journey.budget)} · Titik mulai ${escapeHtml(journey.startPoint.label)}</p>${days}</body></html>`
+  const html = `<!doctype html><html lang="id"><head><meta charset="utf-8"><title>MeLokal - ${escapeHtml(destinationName)}</title><style>body{font-family:Arial,sans-serif;max-width:760px;margin:40px auto;line-height:1.5;color:#241c15}h1{color:#2f6b4f}section{border-top:1px solid #ddd;padding:16px 0}li{margin:12px 0}small{color:#4a3f35}</style></head><body><h1>MeLokal: ${escapeHtml(destinationName)}</h1><p>${journey.days} hari · Budget ${escapeHtml(journey.budget)} · Titik mulai ${escapeHtml(journey.startPoint.label)}</p>${days}</body></html>`
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' })
   const url = URL.createObjectURL(blob)
   const link = document.createElement('a')
   link.href = url
-  link.download = `jadi-lokal-${journey.destinationSlug}-itinerary.html`
+  link.download = `melokal-${journey.destinationSlug}-itinerary.html`
   link.click()
   URL.revokeObjectURL(url)
 }

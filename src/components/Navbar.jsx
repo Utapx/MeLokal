@@ -21,7 +21,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         <NavLink to="/" className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
           <Compass size={22} className="text-sawah" />
-          Jadi Lokal
+          MeLokal
         </NavLink>
 
         <nav className="hidden md:flex items-center gap-8">

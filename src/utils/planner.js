@@ -30,6 +30,24 @@ const TEMPLATE_B = [
   { time: '19:00', label: 'Night Activity', category: 'culture' },
 ]
 
+const TEMPLATE_C = [
+  { time: '07:30', label: 'Early Breakfast', category: 'food' },
+  { time: '09:30', label: 'Local Cafe', category: 'cafe' },
+  { time: '12:00', label: 'Lunch Spot', category: 'food' },
+  { time: '14:30', label: 'Cultural Exploration', category: 'culture' },
+  { time: '18:00', label: 'Hidden Gem Sunset', category: 'hidden-gem' },
+]
+
+const TEMPLATE_D = [
+  { time: '08:30', label: 'Morning Cafe', category: 'cafe' },
+  { time: '10:30', label: 'Hidden Gem', category: 'hidden-gem' },
+  { time: '13:00', label: 'Lunch', category: 'food' },
+  { time: '15:30', label: 'Local Shopping', category: 'shopping' },
+  { time: '19:30', label: 'Dinner Local', category: 'food' },
+]
+
+const TEMPLATES = [TEMPLATE_A, TEMPLATE_B, TEMPLATE_C, TEMPLATE_D]
+
 function scorePlace(place, interestCategories, budget) {
   let score = 0
 
@@ -124,7 +142,7 @@ export function generateItinerary(destinationSlug, days, budget, interests, star
   const dayPlans = []
 
   for (let dayIndex = 0; dayIndex < days; dayIndex++) {
-    const template = dayIndex % 2 === 0 ? TEMPLATE_A : TEMPLATE_B
+    const template = TEMPLATES[dayIndex % TEMPLATES.length]
     const usedIdsToday = new Set()
     let currentPoint = routeStart
 

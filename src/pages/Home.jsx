@@ -26,10 +26,10 @@ export default function Home() {
             <Compass size={14} /> Local Experience Platform
           </span>
           <h1 className="font-display text-5xl md:text-7xl font-semibold leading-[1.05]">
-            Jadi Lokal
+            MeLokal
           </h1>
           <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto italic">
-            &ldquo;Datang sebagai turis, pulang dengan pengalaman seperti warga lokal.&rdquo;
+            &ldquo;Bukan sekadar wisatawan &mdash; rasakan hidup seperti warga lokal di setiap destinasi.&rdquo;
           </p>
 
           <form onSubmit={handleSearch} className="mt-10 max-w-xl mx-auto flex items-center gap-2 bg-white rounded-full p-2 shadow-soft">
@@ -81,12 +81,12 @@ export default function Home() {
         <div className="mt-10 bg-sawah-light rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6">
           <Sparkles className="text-sawah-dark shrink-0" size={32} />
           <div>
-            <h3 className="font-display text-xl font-semibold text-ink mb-2">Solusi Jadi Lokal</h3>
-            <p className="text-ink-soft text-sm max-w-2xl">
-              Jadi Lokal menyusun panduan dari sudut pandang warga: bahasa, kuliner, transportasi,
-              budget, etika, dan tips praktis — lalu memadukannya dengan peta interaktif dan
-              itinerary yang dipersonalisasi sesuai budget dan minatmu.
-            </p>
+              <h3 className="font-display text-xl font-semibold text-ink mb-2">Solusi MeLokal</h3>
+              <p className="text-ink-soft text-sm max-w-2xl">
+                MeLokal menyusun panduan dari sudut pandang warga: bahasa, kuliner, transportasi,
+                budget, etika, dan tips praktis — lalu memadukannya dengan peta interaktif dan
+                itinerary yang dipersonalisasi sesuai budget dan minatmu.
+              </p>
           </div>
         </div>
       </Section>
@@ -149,7 +149,7 @@ export default function Home() {
           <div>
             <Route size={28} className="text-turmeric-dark mb-3" />
             <p className="text-ink max-w-xl">
-              Pilih destinasi, durasi, budget, dan minatmu — Jadi Lokal menyusun itinerary harian
+              Pilih destinasi, durasi, budget, dan minatmu — MeLokal menyusun itinerary harian
               berbasis rekomendasi warga lokal, siap dipakai dan disimpan.
             </p>
           </div>
