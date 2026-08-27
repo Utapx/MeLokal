@@ -81,7 +81,7 @@ function isOpenForSlot(place, slotTime) {
   const name = place.name.toLowerCase()
   const slotMinutes = timeToMinutes(slotTime)
 
-  if (name.includes('malam') || name.includes('night')) return slotMinutes >= 17 * 60
+  if (name.includes('malam') || name.includes('night') || name.includes('culinary night')) return slotMinutes >= 17 * 60
   if (name.includes('pagi') || name.includes('sarapan')) return slotMinutes < 12 * 60
   if (place.operationalHours) {
     const [start, end] = place.operationalHours.split(' - ').map(timeToMinutes)
@@ -119,10 +119,14 @@ function pickPlaceForSlot({
   if (candidates.length === 0) return null
 
   const unused = candidates.filter((p) => !usedIds.has(p.id))
-  const openCandidates = unused.filter((p) => isOpenForSlot(p, slotTime))
-  const availableCandidates = openCandidates.length > 0 ? openCandidates : unused
+  const openCandidates = candidates.filter((p) => isOpenForSlot(p, slotTime))
+  const unusedOpenCandidates = unused.filter((p) => isOpenForSlot(p, slotTime))
   // Use unused if available, otherwise fallback to candidates (repetition) if we literally run out of places
-  const pool = availableCandidates.length > 0 ? availableCandidates : candidates
+  const pool = unusedOpenCandidates.length > 0
+    ? unusedOpenCandidates
+    : openCandidates.length > 0
+      ? openCandidates
+      : candidates
 
   const ranked = [...pool].sort((a, b) => {
     const scoreA = scorePlace(a, interestCategories, budget)

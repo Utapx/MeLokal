@@ -3,7 +3,7 @@
 // category: 'food' | 'hidden-gem' | 'culture' | 'cafe' | 'shopping' | 'transport'
 // priceTier: 1 (murah) - 3 (mahal), dipakai oleh Trip Planner
 
-export const places = [
+const allPlaces = [
   // ---------------- BANDUNG ----------------
   {
     id: 'bdg-1',
@@ -1144,7 +1144,58 @@ export const places = [
     quote: 'Museum kapal selam yang memperkenalkan sejarah maritim dan perjuangan Indonesia.',
     durationMinutes: 30,
   },
+  {
+    id: 'kg-336',
+    destinationSlug: 'semarang',
+    name: 'Grand Maerakaca',
+    category: 'hidden-gem',
+    lat: -6.9605225, lng: 110.3863941,
+    priceRange: 'Rp15.000',
+    priceTier: 1,
+    localScore: 4.4,
+    scores: { localFavorite: 84, touristCrowd: 55, valueForMoney: 90, authenticity: 85 },
+    quote: 'Taman tematik di kawasan pesisir yang cocok untuk melihat sisi lain Semarang.',
+  },
+  {
+    id: 'kg-341',
+    destinationSlug: 'semarang',
+    name: 'Hutan Wisata Tinjomoyo Semarang',
+    category: 'hidden-gem',
+    lat: -7.0296837, lng: 110.3999611,
+    priceRange: 'Rp3.000',
+    priceTier: 1,
+    localScore: 4.3,
+    scores: { localFavorite: 82, touristCrowd: 30, valueForMoney: 95, authenticity: 90 },
+    quote: 'Ruang hijau untuk berjalan santai dan beristirahat jauh dari kepadatan pusat kota.',
+  },
+  {
+    id: 'kg-393',
+    destinationSlug: 'surabaya',
+    name: 'Taman Harmoni Keputih',
+    category: 'hidden-gem',
+    lat: -7.2952211, lng: 112.8035603,
+    priceRange: 'Gratis',
+    priceTier: 1,
+    localScore: 4.4,
+    scores: { localFavorite: 86, touristCrowd: 35, valueForMoney: 100, authenticity: 90 },
+    quote: 'Taman kota yang menawarkan ruang terbuka untuk beristirahat dan menikmati suasana hijau.',
+  },
+  {
+    id: 'kg-394',
+    destinationSlug: 'surabaya',
+    name: 'Air Mancur Menari',
+    category: 'culture',
+    lat: -7.2356933, lng: 112.7955234,
+    priceRange: 'Rp35.000',
+    priceTier: 2,
+    localScore: 4.4,
+    scores: { localFavorite: 84, touristCrowd: 60, valueForMoney: 88, authenticity: 85 },
+    quote: 'Pertunjukan air mancur dengan jadwal malam yang menjadi bagian dari ruang publik kota.',
+    operationalHours: '19:00 - 21:00',
+  },
 ]
+
+export const places = allPlaces.filter((place) => place.destinationSlug !== 'bali')
 
 export const getPlacesByDestination = (slug) =>
   places.filter((p) => p.destinationSlug === slug)
