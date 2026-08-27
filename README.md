@@ -1,4 +1,4 @@
-# Jadi Lokal 🧭
+# MeLokal
 
 > "Datang sebagai turis, pulang dengan pengalaman seperti warga lokal."
 
@@ -82,7 +82,7 @@ src/
 
 ## Fitur Utama
 
-1. **Explore Destination** (`/explore`) — 4 destinasi: Bandung, Yogyakarta, Bali, Jakarta
+1. **Explore Destination** (`/explore`) — 5 destinasi dari dataset: Bandung, Yogyakarta, Jakarta, Semarang, Surabaya
 2. **Local Guide** (`/destination/:slug`) — bahasa, kuliner, transportasi, budget, etika, "jangan lakukan", local tips
 3. **Local Map** (`/map/:slug`) — peta Leaflet interaktif dengan marker per kategori + filter
 4. **Live Like A Local** — kartu highlight di landing page per destinasi
@@ -110,13 +110,13 @@ Landing Page
 
 - **Data adalah data demo/prototipe.** Nama tempat, harga, dan Local Score dibuat
   untuk simulasi konsep lomba, bukan hasil riset lapangan real-time. Sebelum
-  submission final, pertimbangkan mengganti foto (`picsum.photos` seed placeholder)
-  dengan foto asli destinasi agar lebih meyakinkan saat dipresentasikan.
+  submission final, pertimbangkan mengganti foto pencarian berbasis lokasi dengan
+  aset foto terverifikasi agar lebih meyakinkan saat dipresentasikan.
 - **Firebase configuration bersifat opsional** — aplikasi dapat berjalan tanpa Firebase,
   namun fitur login dan admin panel memerlukan Firebase setup. Untuk demo tanpa
   setup Firebase, semua fitur lain tetap berfungsi normal.
 - Struktur data di `src/data/` sengaja dibuat modular sehingga mudah ditambah
-  (misalnya menambah destinasi ke-5) tanpa mengubah komponen/halaman.
+  tanpa mengubah komponen/halaman.
 - **Admin emails** dapat dikonfigurasi di `src/context/AuthContext.jsx` pada
   array `adminEmails` untuk mengatur siapa saja yang memiliki akses ke Admin Panel.
 

@@ -67,12 +67,12 @@ export default function Home() {
       >
         <div className="grid md:grid-cols-3 gap-5">
           {[
-            { icon: '🗣️', text: 'Tidak tahu bahasa/istilah lokal sehari-hari.' },
-            { icon: '💸', text: 'Tidak tahu kisaran harga wajar, rawan “harga turis”.' },
-            { icon: '🙏', text: 'Tidak tahu etika & aturan tidak tertulis setempat.' },
+            { icon: MapPin, text: 'Tidak tahu bahasa/istilah lokal sehari-hari.' },
+            { icon: Route, text: 'Tidak tahu kisaran harga wajar, rawan “harga turis”.' },
+            { icon: Compass, text: 'Tidak tahu etika & aturan tidak tertulis setempat.' },
           ].map((item) => (
             <div key={item.text} className="bg-white rounded-2xl p-6 shadow-soft">
-              <div className="text-3xl mb-3">{item.icon}</div>
+              <item.icon className="text-sawah-dark mb-3" size={28} aria-hidden="true" />
               <p className="text-ink-soft text-sm">{item.text}</p>
             </div>
           ))}
