@@ -72,6 +72,27 @@ function scorePlace(place, interestCategories, budget) {
   return score
 }
 
+function timeToMinutes(time) {
+  const [hours, minutes] = time.split(':').map(Number)
+  return (hours * 60) + minutes
+}
+
+function isOpenForSlot(place, slotTime) {
+  const name = place.name.toLowerCase()
+  const slotMinutes = timeToMinutes(slotTime)
+
+  if (name.includes('malam') || name.includes('night')) return slotMinutes >= 17 * 60
+  if (name.includes('pagi') || name.includes('sarapan')) return slotMinutes < 12 * 60
+  if (place.operationalHours) {
+    const [start, end] = place.operationalHours.split(' - ').map(timeToMinutes)
+    return start <= end
+      ? slotMinutes >= start && slotMinutes <= end
+      : slotMinutes >= start || slotMinutes <= end
+  }
+
+  return true
+}
+
 function distanceKm(from, to) {
   const earthRadiusKm = 6371
   const latDelta = ((to.lat - from.lat) * Math.PI) / 180
@@ -92,13 +113,16 @@ function pickPlaceForSlot({
   budget,
   usedIds,
   currentPoint,
+  slotTime,
 }) {
   const candidates = allPlaces.filter((p) => p.category === category)
   if (candidates.length === 0) return null
 
   const unused = candidates.filter((p) => !usedIds.has(p.id))
+  const openCandidates = unused.filter((p) => isOpenForSlot(p, slotTime))
+  const availableCandidates = openCandidates.length > 0 ? openCandidates : unused
   // Use unused if available, otherwise fallback to candidates (repetition) if we literally run out of places
-  const pool = unused.length > 0 ? unused : candidates
+  const pool = availableCandidates.length > 0 ? availableCandidates : candidates
 
   const ranked = [...pool].sort((a, b) => {
     const scoreA = scorePlace(a, interestCategories, budget)
@@ -162,6 +186,7 @@ export function generateItinerary(destinationSlug, days, budget, interests, star
         budget,
         usedIds,
         currentPoint,
+        slotTime: slot.time,
       })
       const place = selection?.place || null
       if (place) usedIds.add(place.id)

@@ -76,6 +76,7 @@ export const places = [
     localScore: 4.6,
     scores: { localFavorite: 88, touristCrowd: 30, valueForMoney: 92, authenticity: 85 },
     quote: 'Surga kuliner malam yang hidup, tempat nongkrong warga Bandung masa kini.',
+      operationalHours: '17:00 - 23:00',
   },
   {
     id: 'bdg-7',
