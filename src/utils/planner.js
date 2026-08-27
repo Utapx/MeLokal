@@ -83,6 +83,7 @@ function isOpenForSlot(place, slotTime) {
 
   if (name.includes('malam') || name.includes('night') || name.includes('culinary night')) return slotMinutes >= 17 * 60
   if (name.includes('pagi') || name.includes('sarapan')) return slotMinutes < 12 * 60
+  if (name.includes('subuh')) return slotMinutes < 9 * 60
   if (place.operationalHours) {
     const [start, end] = place.operationalHours.split(' - ').map(timeToMinutes)
     return start <= end

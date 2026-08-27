@@ -16,6 +16,7 @@ const allPlaces = [
     localScore: 4.8,
     scores: { localFavorite: 95, touristCrowd: 40, valueForMoney: 92, authenticity: 96 },
     quote: 'Legendaris sejak 1965, bumbu kacangnya juara. Sarapan favorit warga sekitar.',
+    operationalHours: '06:00 - 12:00',
   },
   {
     id: 'bdg-2',
@@ -161,6 +162,7 @@ const allPlaces = [
     localScore: 4.6,
     scores: { localFavorite: 82, touristCrowd: 65, valueForMoney: 85, authenticity: 80 },
     quote: 'Pusat kuliner malam non-halal dan halal yang meriah.',
+    operationalHours: '17:00 - 23:00',
   },
   {
     id: 'bdg-14',
@@ -173,6 +175,7 @@ const allPlaces = [
     localScore: 4.7,
     scores: { localFavorite: 88, touristCrowd: 55, valueForMoney: 88, authenticity: 85 },
     quote: 'Wisata kuliner malam legendaris khas Bandung (Soto Bandung, Kobe, Ronde Jahe).',
+    operationalHours: '17:00 - 23:00',
   },
   {
     id: 'bdg-15',
@@ -247,6 +250,7 @@ const allPlaces = [
     localScore: 4.8,
     scores: { localFavorite: 95, touristCrowd: 40, valueForMoney: 90, authenticity: 100 },
     quote: 'Makan gudeg malam hari langsung dari dapurnya (pawon). Rasanya otentik!',
+    operationalHours: '18:00 - 22:00',
   },
   {
     id: 'yog-5',
@@ -259,6 +263,7 @@ const allPlaces = [
     localScore: 4.8,
     scores: { localFavorite: 92, touristCrowd: 15, valueForMoney: 95, authenticity: 90 },
     quote: 'Kombinasi unik pasar tradisional pagi dan hub kuliner kreatif artisan di sore hari.',
+    operationalHours: '06:00 - 18:00',
   },
   {
     id: 'yog-6',
@@ -307,6 +312,7 @@ const allPlaces = [
     localScore: 4.5,
     scores: { localFavorite: 88, touristCrowd: 70, valueForMoney: 98, authenticity: 90 },
     quote: 'Pusat nongkrong malam warga. Coba tradisi berjalan mata tertutup lewati pohon beringin.',
+    operationalHours: '17:00 - 24:00',
   },
   {
     id: 'yog-10',
@@ -635,6 +641,7 @@ const allPlaces = [
     localScore: 4.8,
     scores: { localFavorite: 92, touristCrowd: 25, valueForMoney: 100, authenticity: 90 },
     quote: 'Taman asri di tengah perumahan elit. Tempat warga duduk santai sore hari.',
+    operationalHours: '06:00 - 18:00',
   },
   {
     id: 'jkt-10',
@@ -647,6 +654,7 @@ const allPlaces = [
     localScore: 4.6,
     scores: { localFavorite: 88, touristCrowd: 55, valueForMoney: 92, authenticity: 85 },
     quote: 'Deretan kuliner malam legendaris di jantung kota.',
+    operationalHours: '17:00 - 02:00',
   },
   {
     id: 'jkt-11',
@@ -707,6 +715,7 @@ const allPlaces = [
     localScore: 4.8,
     scores: { localFavorite: 95, touristCrowd: 10, valueForMoney: 100, authenticity: 95 },
     quote: 'Sensasi berburu kue tradisional tengah malam hingga subuh.',
+    operationalHours: '00:00 - 08:00',
   }
 ,
   {
