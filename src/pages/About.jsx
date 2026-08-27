@@ -1,5 +1,5 @@
 import React from 'react'
-import { Compass, MapPin, Users, Sparkles } from 'lucide-react'
+import { Compass, MapPin, Users, Sparkles, Info } from 'lucide-react'
 import Section from '../components/Section.jsx'
 import Button from '../components/Button.jsx'
 
@@ -55,14 +55,22 @@ export default function About() {
       </Section>
 
       <Section eyebrow="Catatan" title="Status project ini">
-        <div className="bg-turmeric-light rounded-2xl p-6 max-w-2xl">
-          <p className="text-sm text-ink-soft">
+        <div className="grid md:grid-cols-[auto_1fr] gap-5 md:gap-7 items-start bg-turmeric-light rounded-3xl p-6 md:p-8">
+          <div className="w-12 h-12 rounded-2xl bg-white/70 text-turmeric-dark flex items-center justify-center">
+            <Info size={24} aria-hidden="true" />
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-wide font-semibold text-turmeric-dark mb-2">
+              Prototype untuk eksplorasi konsep
+            </p>
+            <p className="text-sm text-ink-soft max-w-3xl">
             MeLokal adalah <strong className="text-ink">prototype/fungsional website</strong>{' '}
             yang dikembangkan untuk keperluan perlombaan pengembangan website mahasiswa. Seluruh
             data destinasi, tempat, harga, dan Local Score pada website ini merupakan data contoh
             (demo) untuk simulasi konsep — bukan hasil riset lapangan real-time maupun direktori
             bisnis terverifikasi.
-          </p>
+            </p>
+          </div>
         </div>
       </Section>
 
