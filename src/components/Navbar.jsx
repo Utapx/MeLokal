@@ -9,6 +9,7 @@ const links = [
   { to: '/map', label: 'Map' },
   { to: '/plan', label: 'Plan Trip' },
   { to: '/favorites', label: 'Favorites' },
+  { to: '/about', label: 'About' },
 ]
 
 export default function Navbar() {
