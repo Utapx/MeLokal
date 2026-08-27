@@ -5,6 +5,7 @@ import Section from '../components/Section.jsx'
 import DestinationCard from '../components/DestinationCard.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import { destinations } from '../data/destinations.js'
+import { places } from '../data/places.js'
 
 export default function Explore() {
   const [params] = useSearchParams()
@@ -13,12 +14,18 @@ export default function Explore() {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     if (!q) return destinations
-    return destinations.filter(
-      (d) =>
-        d.name.toLowerCase().includes(q) ||
-        d.region.toLowerCase().includes(q) ||
-        d.tagline.toLowerCase().includes(q)
-    )
+
+    return destinations.filter((destination) => {
+      const destinationMatches = [destination.name, destination.region, destination.tagline]
+        .some((value) => value.toLowerCase().includes(q))
+      const placeMatches = places.some(
+        (place) =>
+          place.destinationSlug === destination.slug &&
+          `${place.name} ${place.searchTerms || ''} ${place.quote}`.toLowerCase().includes(q)
+      )
+
+      return destinationMatches || placeMatches
+    })
   }, [query])
 
   return (
@@ -34,7 +41,7 @@ export default function Explore() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             type="text"
-            placeholder="Cari destinasi atau provinsi..."
+            placeholder="Cari kota, provinsi, atau tempat..."
             className="flex-1 outline-none text-sm py-2 bg-transparent"
           />
         </div>

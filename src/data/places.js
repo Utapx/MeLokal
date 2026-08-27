@@ -1202,6 +1202,34 @@ const allPlaces = [
     quote: 'Pertunjukan air mancur dengan jadwal malam yang menjadi bagian dari ruang publik kota.',
     operationalHours: '19:00 - 21:00',
   },
+  {
+    id: 'kg-3',
+    destinationSlug: 'jakarta',
+    name: 'Dunia Fantasi',
+    searchTerms: 'Dufan Ancol',
+    category: 'attraction',
+    lat: -6.1253124, lng: 106.8335377,
+    priceRange: 'Rp270.000',
+    priceTier: 3,
+    localScore: 4.6,
+    scores: { localFavorite: 82, touristCrowd: 90, valueForMoney: 78, authenticity: 75 },
+    quote: 'Taman hiburan di kawasan Ancol dengan beragam wahana untuk rekreasi keluarga.',
+    durationMinutes: 360,
+    operationalHours: '10:00 - 18:00',
+  },
+  {
+    id: 'kg-4',
+    destinationSlug: 'jakarta',
+    name: 'Taman Mini Indonesia Indah (TMII)',
+    category: 'attraction',
+    lat: -6.3024459, lng: 106.8951559,
+    priceRange: 'Rp10.000',
+    priceTier: 1,
+    localScore: 4.5,
+    scores: { localFavorite: 86, touristCrowd: 78, valueForMoney: 92, authenticity: 88 },
+    quote: 'Kawasan wisata bertema budaya Indonesia dengan anjungan dan ruang rekreasi keluarga.',
+    operationalHours: '08:00 - 18:00',
+  },
 ]
 
 export const places = allPlaces.filter((place) => place.destinationSlug !== 'bali')
@@ -1218,4 +1246,5 @@ export const categoryMeta = {
   cafe: { label: 'Kopi & Nongkrong', shortLabel: 'Kafe' },
   shopping: { label: 'Pasar & Belanja', shortLabel: 'Belanja' },
   transport: { label: 'Transportasi', shortLabel: 'Transportasi' },
+  attraction: { label: 'Taman Hiburan', shortLabel: 'Hiburan' },
 }
