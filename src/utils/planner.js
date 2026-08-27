@@ -90,22 +90,30 @@ function pickPlaceForSlot({
   allPlaces,
   interestCategories,
   budget,
-  usedIdsToday,
+  usedIds,
   currentPoint,
 }) {
   const candidates = allPlaces.filter((p) => p.category === category)
   if (candidates.length === 0) return null
 
-  const unused = candidates.filter((p) => !usedIdsToday.has(p.id))
-  const pool = unused.length > 0 ? unused : candidates // reuse jika kehabisan opsi unik
+  const unused = candidates.filter((p) => !usedIds.has(p.id))
+  // Use unused if available, otherwise fallback to candidates (repetition) if we literally run out of places
+  const pool = unused.length > 0 ? unused : candidates
 
   const ranked = [...pool].sort((a, b) => {
-    const scoreDifference =
-      scorePlace(b, interestCategories, budget) - scorePlace(a, interestCategories, budget)
-    const distanceDifference = distanceKm(currentPoint, a) - distanceKm(currentPoint, b)
+    const scoreA = scorePlace(a, interestCategories, budget)
+    const scoreB = scorePlace(b, interestCategories, budget)
 
-    // Score remains the priority, while distance breaks close calls between places.
-    return scoreDifference || distanceDifference
+    const distA = distanceKm(currentPoint, a)
+    const distB = distanceKm(currentPoint, b)
+
+    // Distance Penalty: subtract 0.5 points per kilometer.
+    // This allows a truly iconic place (high score) to still win if it's far,
+    // but ensures we prefer closer places if scores are somewhat similar.
+    const finalScoreA = scoreA - (distA * 0.5)
+    const finalScoreB = scoreB - (distB * 0.5)
+
+    return finalScoreB - finalScoreA
   })
   return {
     place: ranked[0],
@@ -140,10 +148,10 @@ export function generateItinerary(destinationSlug, days, budget, interests, star
   const routeStart = startPoint || { ...destination.center, label: `Pusat kota ${destination.name}` }
 
   const dayPlans = []
+  const usedIds = new Set()
 
   for (let dayIndex = 0; dayIndex < days; dayIndex++) {
     const template = TEMPLATES[dayIndex % TEMPLATES.length]
-    const usedIdsToday = new Set()
     let currentPoint = routeStart
 
     const slots = template.map((slot) => {
@@ -152,11 +160,11 @@ export function generateItinerary(destinationSlug, days, budget, interests, star
         allPlaces,
         interestCategories,
         budget,
-        usedIdsToday,
+        usedIds,
         currentPoint,
       })
       const place = selection?.place || null
-      if (place) usedIdsToday.add(place.id)
+      if (place) usedIds.add(place.id)
       const distanceFromPrevious = place ? distanceKm(currentPoint, place) : null
       if (place) currentPoint = place
       return { ...slot, place, alternatives: selection?.alternatives || [], distanceFromPrevious }
