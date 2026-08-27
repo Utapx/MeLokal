@@ -1076,10 +1076,10 @@ export const getPlacesByDestination = (slug) =>
 export const getPlaceById = (id) => places.find((p) => p.id === id)
 
 export const categoryMeta = {
-  food: { label: 'Kuliner Legendaris', emoji: '🍜' },
-  'hidden-gem': { label: 'Hidden Gem', emoji: '💎' },
-  culture: { label: 'Budaya & Sejarah', emoji: '🏛' },
-  cafe: { label: 'Kopi & Nongkrong', emoji: '☕' },
-  shopping: { label: 'Pasar & Belanja', emoji: '🛍' },
-  transport: { label: 'Transportasi', emoji: '🚌' },
+  food: { label: 'Kuliner Legendaris', shortLabel: 'Kuliner' },
+  'hidden-gem': { label: 'Temuan Lokal', shortLabel: 'Temuan' },
+  culture: { label: 'Budaya & Sejarah', shortLabel: 'Budaya' },
+  cafe: { label: 'Kopi & Nongkrong', shortLabel: 'Kafe' },
+  shopping: { label: 'Pasar & Belanja', shortLabel: 'Belanja' },
+  transport: { label: 'Transportasi', shortLabel: 'Transportasi' },
 }
