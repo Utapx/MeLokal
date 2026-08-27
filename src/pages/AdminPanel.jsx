@@ -187,7 +187,7 @@ export default function AdminPanel() {
                     <div className="space-y-2">
                       {categoryBreakdown.map((cat) => (
                         <div key={cat.key} className="flex items-center gap-3 p-3 bg-paper rounded-lg">
-                          <span className="text-base">{cat.emoji}</span>
+                          <span className="text-base">{cat.label}</span>
                           <span className="text-sm text-ink flex-1">{cat.label}</span>
                           <span className="text-sm font-semibold text-sawah-dark">{cat.count} tempat</span>
                           <div className="w-16 h-1.5 bg-ink/10 rounded-full overflow-hidden">
@@ -282,7 +282,7 @@ export default function AdminPanel() {
                             <td className="py-3 px-3 text-ink-soft">{dest?.name}</td>
                             <td className="py-3 px-3">
                               <span className="inline-flex items-center gap-1 text-xs bg-sawah-light text-sawah-dark px-2 py-0.5 rounded-full">
-                                {categoryMeta[p.category].emoji} {categoryMeta[p.category].label}
+                                {categoryMeta[p.category].label}
                               </span>
                             </td>
                             <td className="py-3 px-3 text-right font-semibold text-turmeric-dark">★ {p.localScore}</td>

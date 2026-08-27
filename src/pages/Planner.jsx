@@ -12,12 +12,12 @@ import { saveJourney, downloadJourney } from '../utils/storage.js'
 import { fetchLivePlaces } from '../services/placesApi.js'
 
 const INTERESTS = [
-  { key: 'kuliner', label: 'Kuliner', emoji: '🍜' },
-  { key: 'budaya', label: 'Budaya', emoji: '🏛' },
-  { key: 'alam', label: 'Alam', emoji: '🌿' },
-  { key: 'nongkrong', label: 'Nongkrong', emoji: '☕' },
-  { key: 'hidden-gem', label: 'Hidden Gem', emoji: '💎' },
-  { key: 'belanja', label: 'Belanja', emoji: '🛍' },
+  { key: 'kuliner', label: 'Kuliner' },
+  { key: 'budaya', label: 'Budaya' },
+  { key: 'alam', label: 'Alam' },
+  { key: 'nongkrong', label: 'Nongkrong' },
+  { key: 'hidden-gem', label: 'Temuan Lokal' },
+  { key: 'belanja', label: 'Belanja' },
 ]
 
 const BUDGETS = [
@@ -249,7 +249,7 @@ export default function Planner() {
                         : 'bg-paper text-ink-soft border-ink/15 hover:border-sawah'
                     }`}
                   >
-                    {i.emoji} {i.label}
+                    {i.label}
                   </button>
                 ))}
               </div>
@@ -321,7 +321,7 @@ export default function Planner() {
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <p className="text-xs uppercase tracking-wide text-sawah-dark font-semibold">
-                            {categoryMeta[place.category].emoji} {categoryMeta[place.category].label}
+                            {categoryMeta[place.category].label}
                           </p>
                           <h3 className="font-display font-semibold text-lg text-ink mt-1">{place.name}</h3>
                         </div>
@@ -352,7 +352,7 @@ export default function Planner() {
                                 {slot.label}
                                 {slot.place && (
                                   <span className="text-ink-soft font-normal">
-                                    {' '}— {categoryMeta[slot.place.category].emoji} {slot.place.name}
+                                    {' '}— {categoryMeta[slot.place.category].label}: {slot.place.name}
                                   </span>
                                 )}
                               </p>

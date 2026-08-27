@@ -38,7 +38,6 @@ export default function Login() {
         <div className="bg-white rounded-3xl shadow-lg p-8 space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <p className="text-5xl">🧭</p>
             <h1 className="font-display text-3xl font-semibold text-ink">MeLokal</h1>
             <p className="text-ink-soft">Masuk untuk menyimpan petualangan lokal kamu</p>
           </div>

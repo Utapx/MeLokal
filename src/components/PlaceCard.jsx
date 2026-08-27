@@ -24,7 +24,7 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
       {/* Image Banner */}
       <div className="h-32 w-full bg-ink/5 relative overflow-hidden shrink-0">
         <img
-          src={place.image || `https://loremflickr.com/600/400/${place.destinationSlug},${place.category}/all?lock=${place.id.replace(/\D/g, '') || 1}`}
+          src={place.image || `https://loremflickr.com/600/400/${encodeURIComponent(place.name)},${place.destinationSlug},indonesia/all?lock=${place.id.replace(/\D/g, '') || 1}`}
           alt={place.name}
           className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
           loading="lazy"
@@ -35,7 +35,7 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
         <div className="flex items-start justify-between gap-2">
         <div>
           <span className="text-xs text-turmeric-dark font-semibold uppercase tracking-wide">
-            {meta.emoji} {meta.label}
+            {meta.label}
           </span>
           <h4 className="font-display font-semibold text-ink leading-snug mt-0.5">{place.name}</h4>
         </div>
@@ -57,10 +57,10 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
       <div className="flex flex-col gap-2 mt-4 text-sm bg-ink/5 p-3 rounded-xl border border-ink/5">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-ink flex items-center gap-1.5 min-w-[70px]">
-            ⭐ {place.localScore.toFixed(1)}
+            Skor lokal {place.localScore.toFixed(1)}
           </span>
           <span className="text-ink-soft">·</span>
-          <span className="text-sawah-dark font-medium truncate">💰 {place.priceRange}</span>
+          <span className="text-sawah-dark font-medium truncate">{place.priceRange}</span>
         </div>
 
         <div className="flex items-center gap-2">

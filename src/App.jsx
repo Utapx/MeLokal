@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { Compass } from 'lucide-react'
 import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
@@ -17,7 +18,7 @@ import UserPanel from './pages/UserPanel.jsx'
 function NotFound() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
-      <p className="text-6xl mb-4">🧭</p>
+      <Compass size={56} className="text-sawah mb-4" aria-hidden="true" />
       <h1 className="text-2xl font-display font-semibold text-ink">Halaman tidak ditemukan</h1>
       <p className="text-ink-soft mt-2">Kamu tersesat dari rute MeLokal. Coba kembali ke beranda.</p>
     </div>

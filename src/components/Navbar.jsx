@@ -72,7 +72,7 @@ export default function Navbar() {
                     onClick={() => setProfileOpen(false)}
                     className="flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-ink/5 transition-colors"
                   >
-                    👤 Profil Saya
+                    Profil Saya
                   </NavLink>
                   {isAdmin && (
                     <NavLink
@@ -135,7 +135,7 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}
                   className="text-base font-medium text-ink-soft"
                 >
-                  👤 Profil Saya
+                  Profil Saya
                 </NavLink>
                 {isAdmin && (
                   <NavLink
@@ -143,7 +143,7 @@ export default function Navbar() {
                     onClick={() => setOpen(false)}
                     className="text-base font-medium text-ink-soft"
                   >
-                    👨‍💼 Admin Panel
+                    Admin Panel
                   </NavLink>
                 )}
               </>

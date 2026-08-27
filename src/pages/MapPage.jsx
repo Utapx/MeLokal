@@ -80,7 +80,7 @@ export default function MapPage() {
                       : 'bg-white text-ink-soft border-ink/15 hover:border-sawah'
                   }`}
                 >
-                  {meta.emoji} {meta.label}
+                  {meta.label}
                 </button>
               )
             })}

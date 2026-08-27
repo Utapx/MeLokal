@@ -257,7 +257,7 @@ export default function UserPanel() {
                                       <span className="font-semibold text-ink shrink-0 w-10">{slot.time}</span>
                                       <span>
                                         {slot.place ? (
-                                          <>{categoryMeta[slot.place.category].emoji} {slot.place.name}</>
+                                          <>{categoryMeta[slot.place.category].label}: {slot.place.name}</>
                                         ) : slot.label}
                                       </span>
                                     </li>

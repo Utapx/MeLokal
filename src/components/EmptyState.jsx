@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function EmptyState({ icon = '🧭', title, description, action }) {
+export default function EmptyState({ icon, title, description, action }) {
   return (
     <div className="text-center py-16 px-6 rounded-3xl bg-white/60 border border-dashed border-ink/20">
       <div className="text-4xl mb-3">{icon}</div>
