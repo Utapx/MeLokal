@@ -43,7 +43,6 @@ export default function Explore() {
       <Section>
         {filtered.length === 0 ? (
           <EmptyState
-            icon="🔍"
             title="Destinasi tidak ditemukan"
             description="Coba kata kunci lain, misalnya nama kota atau provinsi."
           />

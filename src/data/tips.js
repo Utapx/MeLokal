@@ -159,7 +159,7 @@ export const tips = {
     ],
     localTips: [
       'Naik KRL di luar jam sibuk (10.00–15.00) jauh lebih nyaman untuk turis.',
-      'Kampung kota di sekitar Tanah Tinggi punya mural warga yang jarang difoto turis.',
+      'Indonesia Kaya Park punya gerbang mural karya seniman muda Semarang dan ruang untuk kegiatan seni komunitas.',
       'Cek titik jemput ojek online resmi saat berada di dalam mal besar.',
       'Pasar pagi paling ramai & otentik sebelum jam 8 pagi.',
       'Bawa payung kecil — hujan Jakarta bisa datang tiba-tiba di musim tertentu.',
@@ -172,4 +172,42 @@ export const tips = {
   },
 }
 
-export const getTipsByDestination = (slug) => tips[slug]
+const cityTipsFallback = {
+  language: [
+    { term: 'Permisi', meaning: 'Sapaan sopan saat melewati orang atau memasuki ruang warga.' },
+    { term: 'Monggo', meaning: 'Ungkapan Jawa untuk mempersilakan atau menyapa dengan hormat.' },
+    { term: 'Terima kasih', meaning: 'Ucapan sederhana setelah menerima bantuan atau layanan.' },
+  ],
+  food: [
+    { name: 'Warung sekitar lokasi wisata', desc: 'Bandingkan menu dan harga sebelum memesan agar pilihan tetap sesuai kebutuhan.' },
+    { name: 'Jajanan pasar', desc: 'Datang lebih pagi untuk menemukan pilihan yang masih lengkap dan ramai warga.' },
+    { name: 'Kedai lokal', desc: 'Tanyakan rekomendasi menu kepada pemilik kedai untuk pengalaman yang lebih sesuai daerah.' },
+  ],
+  transport: [
+    { title: 'Transportasi umum', desc: 'Periksa rute dan jam operasional sebelum berangkat, terutama untuk tempat di pinggiran kota.' },
+    { title: 'Ojek online', desc: 'Gunakan titik jemput yang aman dan mudah dikenali di area ramai.' },
+    { title: 'Jalan kaki', desc: 'Pilih rute pejalan kaki pada pagi atau sore hari dan hormati aktivitas warga.' },
+  ],
+  budgetRange: 'Rp100.000 – Rp250.000 per hari (di luar penginapan)',
+  etiquette: [
+    'Berpakaian sopan saat mengunjungi tempat ibadah atau situs sejarah.',
+    'Minta izin sebelum memotret warga, rumah, atau kegiatan komunitas.',
+    'Ikuti aturan tempat dan jangan meninggalkan sampah di area wisata.',
+  ],
+  dontDo: [
+    'Jangan menganggap harga di setiap tempat wisata sama.',
+    'Jangan memaksakan diri mengunjungi banyak lokasi tanpa memperhitungkan jarak.',
+    'Jangan menghalangi jalan atau aktivitas warga saat mengambil foto.',
+  ],
+  localTips: [
+    'Cek jam buka tempat tujuan sebelum berangkat karena sebagian lokasi memiliki jam kunjungan terbatas.',
+    'Simpan uang tunai pecahan kecil untuk tiket dan warung lokal.',
+    'Gunakan nama tempat dan kota saat mencari rute agar tidak salah lokasi.',
+  ],
+  liveLikeLocal: {
+    headline: 'Beri waktu untuk melihat kota secara utuh.',
+    body: 'Gabungkan situs populer dengan taman, kampung, atau ruang publik yang tercatat di dataset lokal.',
+  },
+}
+
+export const getTipsByDestination = (slug) => tips[slug] || cityTipsFallback
