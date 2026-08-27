@@ -27,19 +27,6 @@ export const destinations = [
     center: { lat: -7.7956, lng: 110.3695 },
   },
   {
-    slug: 'bali',
-    name: 'Bali',
-    region: 'Bali',
-    badge: 'Pulau Dewata',
-    tagline: 'Lebih dari pantai — ada ritme kehidupan spiritual yang layak dihormati.',
-    description:
-      'Di luar Kuta dan Seminyak yang ramai turis, Bali punya desa-desa dengan tradisi harian yang masih dijalankan warganya. Memahami sedikit etika lokal akan sangat mengubah pengalamanmu.',
-    heroImage: 'https://loremflickr.com/1200/800/bali,indonesia/all?lock=3',
-    localScore: 4.9,
-    recommendationCount: 31,
-    center: { lat: -8.4095, lng: 115.1889 },
-  },
-  {
     slug: 'jakarta',
     name: 'Jakarta',
     region: 'DKI Jakarta',
@@ -51,6 +38,32 @@ export const destinations = [
     localScore: 4.5,
     recommendationCount: 19,
     center: { lat: -6.2088, lng: 106.8456 },
+  },
+  {
+    slug: 'semarang',
+    name: 'Semarang',
+    region: 'Jawa Tengah',
+    badge: 'Kota Pelabuhan',
+    tagline: 'Warisan sejarah, kampung kreatif, dan ruang hijau dalam satu kota.',
+    description:
+      'Dataset wisata mencatat Semarang melalui tempat bersejarah seperti Lawang Sewu dan Candi Gedong Songo, ruang publik seperti Kampung Pelangi, serta kawasan hijau yang cocok untuk perjalanan yang lebih santai.',
+    heroImage: 'https://loremflickr.com/1200/800/semarang,indonesia/all?lock=5',
+    localScore: 4.5,
+    recommendationCount: 57,
+    center: { lat: -6.9932, lng: 110.4203 },
+  },
+  {
+    slug: 'surabaya',
+    name: 'Surabaya',
+    region: 'Jawa Timur',
+    badge: 'Kota Pahlawan',
+    tagline: 'Kota besar dengan taman kota, jejak sejarah, dan ekowisata pesisir.',
+    description:
+      'Surabaya dalam dataset ini tidak hanya berisi landmark sejarah, tetapi juga taman kota dan ekowisata Mangrove Wonorejo yang memperlihatkan sisi hijau Kota Pahlawan.',
+    heroImage: 'https://loremflickr.com/1200/800/surabaya,indonesia/all?lock=6',
+    localScore: 4.4,
+    recommendationCount: 46,
+    center: { lat: -7.2575, lng: 112.7521 },
   },
 ]
 

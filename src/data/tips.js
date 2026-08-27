@@ -123,7 +123,6 @@ export const tips = {
       'Perhatikan hari raya lokal — beberapa jalan bisa ditutup untuk upacara adat.',
     ],
     liveLikeLocal: {
-      icon: '🙏',
       headline: 'Pahami etika saat memasuki area tertentu.',
       body: 'Hormati tempat dan aktivitas keagamaan masyarakat setempat.',
     },
