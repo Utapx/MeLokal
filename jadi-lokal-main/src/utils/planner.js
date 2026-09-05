@@ -1,0 +1,220 @@
+// Rule-based itinerary generator — TIDAK menggunakan AI API,
+// murni logika IF/ELSE + scoring sederhana di atas data lokal statis.
+import { getPlacesByDestination } from '../data/places.js'
+import { getDestinationBySlug } from '../data/destinations.js'
+
+// Peta minat pengguna -> kategori tempat yang relevan
+const INTEREST_TO_CATEGORY = {
+  kuliner: 'food',
+  budaya: 'culture',
+  alam: 'hidden-gem',
+  nongkrong: 'cafe',
+  'hidden-gem': 'hidden-gem',
+  belanja: 'shopping',
+}
+
+// Dua template slot waktu yang dipakai bergantian tiap hari (sesuai contoh spesifikasi)
+const TEMPLATE_A = [
+  { time: '08:00', label: 'Local Breakfast', category: 'food' },
+  { time: '10:00', label: 'Cultural Spot', category: 'culture' },
+  { time: '13:00', label: 'Local Lunch', category: 'food' },
+  { time: '15:00', label: 'Hidden Gem', category: 'hidden-gem' },
+  { time: '19:00', label: 'Night Food', category: 'food' },
+]
+
+const TEMPLATE_B = [
+  { time: '08:00', label: 'Local Market', category: 'shopping' },
+  { time: '10:00', label: 'Explore City', category: 'culture' },
+  { time: '13:00', label: 'Local Food', category: 'food' },
+  { time: '16:00', label: 'Cafe', category: 'cafe' },
+  { time: '19:00', label: 'Night Activity', category: 'culture' },
+]
+
+const TEMPLATE_C = [
+  { time: '07:30', label: 'Early Breakfast', category: 'food' },
+  { time: '09:30', label: 'Local Cafe', category: 'cafe' },
+  { time: '12:00', label: 'Lunch Spot', category: 'food' },
+  { time: '14:30', label: 'Cultural Exploration', category: 'culture' },
+  { time: '18:00', label: 'Hidden Gem Sunset', category: 'hidden-gem' },
+]
+
+const TEMPLATE_D = [
+  { time: '08:30', label: 'Morning Cafe', category: 'cafe' },
+  { time: '10:30', label: 'Hidden Gem', category: 'hidden-gem' },
+  { time: '13:00', label: 'Lunch', category: 'food' },
+  { time: '15:30', label: 'Local Shopping', category: 'shopping' },
+  { time: '19:30', label: 'Dinner Local', category: 'food' },
+]
+
+const TEMPLATES = [TEMPLATE_A, TEMPLATE_B, TEMPLATE_C, TEMPLATE_D]
+
+function scorePlace(place, interestCategories, budget) {
+  let score = 0
+
+  // IF minat pengguna mencakup kategori tempat ini THEN prioritaskan
+  if (interestCategories.includes(place.category)) {
+    score += 50
+  }
+
+  // IF budget hemat THEN prioritaskan tempat murah (priceTier kecil)
+  // IF budget premium THEN prioritaskan tempat priceTier lebih tinggi
+  if (budget === 'hemat') {
+    score += (3 - place.priceTier) * 10
+  } else if (budget === 'premium') {
+    score += place.priceTier * 10
+  } else {
+    score += 10 // medium: netral
+  }
+
+  // Local Score keseluruhan tetap jadi faktor tambahan
+  score += place.localScore * 4
+
+  return score
+}
+
+function timeToMinutes(time) {
+  const [hours, minutes] = time.split(':').map(Number)
+  return (hours * 60) + minutes
+}
+
+function isOpenForSlot(place, slotTime) {
+  const name = place.name.toLowerCase()
+  const slotMinutes = timeToMinutes(slotTime)
+
+  if (name.includes('malam') || name.includes('night') || name.includes('culinary night')) return slotMinutes >= 17 * 60
+  if (name.includes('pagi') || name.includes('sarapan')) return slotMinutes < 12 * 60
+  if (name.includes('subuh')) return slotMinutes < 9 * 60
+  if (place.operationalHours) {
+    const [start, end] = place.operationalHours.split(' - ').map(timeToMinutes)
+    return start <= end
+      ? slotMinutes >= start && slotMinutes <= end
+      : slotMinutes >= start || slotMinutes <= end
+  }
+
+  return true
+}
+
+function distanceKm(from, to) {
+  const earthRadiusKm = 6371
+  const latDelta = ((to.lat - from.lat) * Math.PI) / 180
+  const lngDelta = ((to.lng - from.lng) * Math.PI) / 180
+  const fromLat = (from.lat * Math.PI) / 180
+  const toLat = (to.lat * Math.PI) / 180
+  const haversine =
+    Math.sin(latDelta / 2) ** 2 +
+    Math.sin(lngDelta / 2) ** 2 * Math.cos(fromLat) * Math.cos(toLat)
+
+  return earthRadiusKm * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine))
+}
+
+function pickPlaceForSlot({
+  category,
+  allPlaces,
+  interestCategories,
+  budget,
+  usedIds,
+  currentPoint,
+  slotTime,
+}) {
+  const candidates = allPlaces.filter((p) => p.category === category)
+  if (candidates.length === 0) return null
+
+  const unused = candidates.filter((p) => !usedIds.has(p.id))
+  const openCandidates = candidates.filter((p) => isOpenForSlot(p, slotTime))
+  const unusedOpenCandidates = unused.filter((p) => isOpenForSlot(p, slotTime))
+  // Use unused if available, otherwise fallback to candidates (repetition) if we literally run out of places
+  const pool = unusedOpenCandidates.length > 0
+    ? unusedOpenCandidates
+    : openCandidates.length > 0
+      ? openCandidates
+      : candidates
+
+  const ranked = [...pool].sort((a, b) => {
+    const scoreA = scorePlace(a, interestCategories, budget)
+    const scoreB = scorePlace(b, interestCategories, budget)
+
+    const distA = distanceKm(currentPoint, a)
+    const distB = distanceKm(currentPoint, b)
+
+    // Distance Penalty: subtract 0.5 points per kilometer.
+    // This allows a truly iconic place (high score) to still win if it's far,
+    // but ensures we prefer closer places if scores are somewhat similar.
+    const finalScoreA = scoreA - (distA * 0.5)
+    const finalScoreB = scoreB - (distB * 0.5)
+
+    return finalScoreB - finalScoreA
+  })
+  return {
+    place: ranked[0],
+    alternatives: ranked.slice(1, 4),
+  }
+}
+
+export function recalculateRouteDistances(slots, startPoint) {
+  let currentPoint = startPoint
+
+  return slots.map((slot) => {
+    if (!slot.place) return { ...slot, distanceFromPrevious: null }
+
+    const distanceFromPrevious = distanceKm(currentPoint, slot.place)
+    currentPoint = slot.place
+    return { ...slot, distanceFromPrevious }
+  })
+}
+
+/**
+ * generateItinerary
+ * @param {string} destinationSlug
+ * @param {number} days - 1..5
+ * @param {'hemat'|'medium'|'premium'} budget
+ * @param {string[]} interests - subset of keys INTEREST_TO_CATEGORY
+ * @param {{lat: number, lng: number, label?: string}} [startPoint]
+ */
+export function generateItinerary(destinationSlug, days, budget, interests, startPoint, placesOverride) {
+  const allPlaces = placesOverride || getPlacesByDestination(destinationSlug)
+  const interestCategories = interests.map((i) => INTEREST_TO_CATEGORY[i]).filter(Boolean)
+  const destination = getDestinationBySlug(destinationSlug)
+  const routeStart = startPoint || { ...destination.center, label: `Pusat kota ${destination.name}` }
+
+  const dayPlans = []
+  const usedIds = new Set()
+
+  for (let dayIndex = 0; dayIndex < days; dayIndex++) {
+    const template = TEMPLATES[dayIndex % TEMPLATES.length]
+    let currentPoint = routeStart
+
+    const slots = template.map((slot) => {
+      const selection = pickPlaceForSlot({
+        category: slot.category,
+        allPlaces,
+        interestCategories,
+        budget,
+        usedIds,
+        currentPoint,
+        slotTime: slot.time,
+      })
+      const place = selection?.place || null
+      if (place) usedIds.add(place.id)
+      const distanceFromPrevious = place ? distanceKm(currentPoint, place) : null
+      if (place) currentPoint = place
+      return { ...slot, place, alternatives: selection?.alternatives || [], distanceFromPrevious }
+    })
+
+    dayPlans.push({
+      dayNumber: dayIndex + 1,
+      startPoint: routeStart,
+      totalDistanceKm: slots.reduce((total, slot) => total + (slot.distanceFromPrevious || 0), 0),
+      slots,
+    })
+  }
+
+  return {
+    destinationSlug,
+    days,
+    budget,
+    interests,
+    startPoint: routeStart,
+    generatedAt: new Date().toISOString(),
+    dayPlans,
+  }
+}
