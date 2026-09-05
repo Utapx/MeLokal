@@ -1,6 +1,6 @@
 import React from 'react'
-import { Compass } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
+import BrandLogo from './BrandLogo.jsx'
 
 export default function Footer() {
   const { t } = useLanguage()
@@ -9,10 +9,7 @@ export default function Footer() {
     <footer className="bg-ink text-white/80 mt-10">
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 grid gap-8 md:grid-cols-3">
         <div>
-          <div className="flex items-center gap-2 text-white font-display text-xl font-semibold">
-            <Compass size={22} className="text-turmeric" />
-            MeLokal
-          </div>
+          <BrandLogo className="text-xl text-white" iconClassName="text-turmeric" />
           <p className="text-sm mt-3 max-w-xs">{t('footer_tagline')}</p>
         </div>
         <div>

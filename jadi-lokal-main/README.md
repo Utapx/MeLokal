@@ -17,32 +17,15 @@ npm run dev
 
 Buka `http://localhost:5173` di browser.
 
-### Setup Firebase untuk Authentication (Opsional)
+### Setup Google Sheets submissions (Opsional)
 
-Untuk menggunakan fitur login dengan Google:
-
-**📖 Lihat panduan lengkap:** [FIREBASE_SETUP.md](FIREBASE_SETUP.md) atau [FIREBASE_CONFIG_MAPPING.md](FIREBASE_CONFIG_MAPPING.md)
-
-**Quick setup:**
-1. Buat project di [Firebase Console](https://console.firebase.google.com)
-2. Aktifkan Google Authentication di Authentication > Sign-in methods
-3. Copy Firebase config dari Project Settings > Your apps
-4. Buat/edit file `.env.local` di root project:
+Untuk menerima pengajuan destinasi dari user dan melakukan review admin, ikuti [GOOGLE_SHEETS_SUBMISSIONS.md](GOOGLE_SHEETS_SUBMISSIONS.md). Setelah deploy Apps Script, isi `.env.local`:
 
 ```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
+VITE_SUBMISSIONS_API_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
 ```
 
-5. Restart dev server: `npm run dev`
-
-Lihat `.env.example` untuk template lengkap.
-
-**⚠️ Penting:** Jangan commit `.env.local` ke Git! File ini sudah di-`.gitignore`.
+Restart dev server setelah mengubah `.env.local`.
 
 Build untuk production (opsional, tidak wajib untuk demo lomba):
 
@@ -58,21 +41,19 @@ npm run preview
 - **React Router** — routing antar halaman
 - **Leaflet + OpenStreetMap** — peta interaktif (gratis, tanpa API key)
 - **lucide-react** — icon set
-- **Firebase + Google Auth** — authentication & login dengan Google
+- **Google Sheets + Apps Script** — submission destinasi dan review admin (opsional)
 - **localStorage** — penyimpanan Favorites & Saved Journey
 
-Semua data destinasi, tempat, dan tips berasal dari **local JSON** di `src/data/`
-— tidak ada database server maupun backend custom.
+Data bawaan destinasi, tempat, dan tips berasal dari **local JSON** di `src/data/`. Destinasi yang disetujui admin dapat dimuat dari Google Sheets.
 
 ## Struktur Folder
 
 ```
 src/
 ├── components/     # Navbar, Footer, Button, Badge, Card, Modal, MapView, dll (reusable)
-├── config/         # firebase.js - konfigurasi Firebase
-├── context/        # AuthContext.jsx - context untuk authentication
+├── services/       # API Google Sheets submissions
 ├── data/           # destinations.js, places.js, tips.js — semua data statis
-├── pages/          # Home, Explore, Destination, MapPage, Planner, Favorites, About, Login, AdminPanel, UserPanel
+├── pages/          # Home, Explore, Destination, MapPage, Planner, Favorites, About, submissions
 ├── utils/
 │   ├── planner.js  # algoritma rule-based Trip Planner (bukan AI API)
 │   └── storage.js  # wrapper localStorage untuk Favorites & Saved Journey
@@ -88,9 +69,8 @@ src/
 4. **Live Like A Local** — kartu highlight di landing page per destinasi
 5. **Smart Trip Planner** (`/plan`) — generator itinerary rule-based berdasarkan durasi, budget, minat
 6. **Favorites** (`/favorites`) — tempat & itinerary tersimpan via localStorage
-7. **Google Authentication** (`/login`) — login dengan Google untuk akses User Panel & Admin Panel
-8. **User Panel** (`/profile`) — dashboard pengguna untuk mengelola favorit dan perjalanan tersimpan
-9. **Admin Panel** (`/admin`) — dashboard admin (untuk user dengan email tertentu) untuk mengelola sistem
+7. **Submit Destination** (`/submit-destination`) — user mengirim tempat baru untuk direview
+8. **Admin Review** (`/admin/submissions`) — admin menerima atau menolak pengajuan dengan token Apps Script
 
 ## Alur Demo yang Disarankan (< 5 menit)
 

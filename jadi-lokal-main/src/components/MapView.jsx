@@ -2,6 +2,7 @@ import React from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import { categoryMeta } from '../data/places.js'
+import { useLanguage } from '../context/LanguageContext'
 import 'leaflet/dist/leaflet.css'
 
 function buildIcon(label) {
@@ -24,6 +25,7 @@ function buildIcon(label) {
 }
 
 export default function MapView({ center, zoom = 13, places, onViewDetails }) {
+  const { t } = useLanguage()
   return (
     <MapContainer
       center={[center.lat, center.lng]}
@@ -42,17 +44,17 @@ export default function MapView({ center, zoom = 13, places, onViewDetails }) {
             <Popup>
               <div className="p-3 font-body">
                 <p className="text-[10px] uppercase tracking-wide text-turmeric-dark font-semibold mb-1">
-                  {meta.label}
+                  {t(meta.translationKey)}
                 </p>
                 <p className="font-display font-semibold text-ink leading-snug">{place.name}</p>
-                <p className="text-sm text-ink mt-1">Skor lokal {place.localScore.toFixed(1)}</p>
+                <p className="text-sm text-ink mt-1">{t('local_score')} {place.localScore.toFixed(1)}</p>
                 <p className="text-xs italic text-ink-soft mt-1">&ldquo;{place.quote}&rdquo;</p>
                 <p className="text-sm font-medium text-sawah-dark mt-1">{place.priceRange}</p>
                 <button
                   onClick={() => onViewDetails && onViewDetails(place)}
                   className="mt-2 w-full text-xs font-semibold text-white bg-sawah hover:bg-sawah-dark rounded-full py-1.5 transition-colors"
                 >
-                  View Details
+                  {t('map_view_details')}
                 </button>
               </div>
             </Popup>

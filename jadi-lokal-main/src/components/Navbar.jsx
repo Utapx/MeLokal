@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Compass, Menu, X, LogOut, Settings, Languages } from 'lucide-react'
-import Button from './Button.jsx'
-import { useAuth } from '../context/AuthContext'
+import { Menu, X, Languages } from 'lucide-react'
+import BrandLogo from './BrandLogo.jsx'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const [profileOpen, setProfileOpen] = useState(false)
-  const { user, isAdmin, logout } = useAuth()
   const { lang, toggleLanguage, t } = useLanguage()
 
   const links = [
@@ -17,6 +14,7 @@ export default function Navbar() {
     { to: '/plan', label: t('nav_plan') },
     { to: '/favorites', label: t('nav_favorites') },
     { to: '/about', label: t('nav_about') },
+    { to: '/submit-destination', label: t('nav_submit_destination') },
   ]
 
   // Kunci scroll body selagi sidebar mobile terbuka
@@ -30,9 +28,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-ink/10">
       <div className="max-w-6xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-        <NavLink to="/" className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
-          <Compass size={22} className="text-sawah" />
-          MeLokal
+        <NavLink to="/" aria-label="MeLokal home">
+          <BrandLogo className="text-xl" />
         </NavLink>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -51,69 +48,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center">
           <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
-
-          {user ? (
-            <div className="relative">
-              <button
-                onClick={() => setProfileOpen(!profileOpen)}
-                className="flex items-center gap-2 p-1 rounded-full hover:bg-ink/5 transition-colors"
-              >
-                {user.photoURL ? (
-                  <img
-                    src={user.photoURL}
-                    alt={user.displayName}
-                    className="w-8 h-8 rounded-full"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-sawah text-white flex items-center justify-center text-sm font-semibold">
-                    {user.email[0].toUpperCase()}
-                  </div>
-                )}
-              </button>
-
-              {profileOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-ink-soft overflow-hidden z-50">
-                  <div className="p-3 border-b border-ink-soft">
-                    <p className="text-sm font-semibold text-ink">{user.displayName || 'Pengguna'}</p>
-                    <p className="text-xs text-ink-soft">{user.email}</p>
-                  </div>
-                  <NavLink
-                    to="/profile"
-                    onClick={() => setProfileOpen(false)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-ink/5 transition-colors"
-                  >
-                    {t('nav_my_profile')}
-                  </NavLink>
-                  {isAdmin && (
-                    <NavLink
-                      to="/admin"
-                      onClick={() => setProfileOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-ink/5 transition-colors"
-                    >
-                      <Settings size={16} />
-                      {t('nav_admin_panel')}
-                    </NavLink>
-                  )}
-                  <button
-                    onClick={() => {
-                      logout()
-                      setProfileOpen(false)
-                    }}
-                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors border-t border-ink-soft"
-                  >
-                    <LogOut size={16} />
-                    {t('nav_logout')}
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Button to="/login" variant="primary">
-              {t('nav_login')}
-            </Button>
-          )}
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -139,16 +75,13 @@ export default function Navbar() {
 
       {/* Sidebar navigasi mobile — slide-in dari kanan */}
       <aside
-        className={`md:hidden fixed top-0 right-0 z-50 h-full w-72 max-w-[82%] bg-paper shadow-2xl transform transition-transform duration-300 ease-out flex flex-col ${
+        className={`md:hidden fixed inset-y-0 right-0 z-50 h-screen w-full bg-[#FAF6EC] shadow-2xl transform transition-transform duration-300 ease-out flex flex-col overflow-hidden ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!open}
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-ink/10 shrink-0">
-          <span className="flex items-center gap-2 font-display font-semibold text-ink">
-            <Compass size={20} className="text-sawah" />
-            MeLokal
-          </span>
+          <BrandLogo />
           <button
             className="p-2 -mr-2 text-ink"
             onClick={() => setOpen(false)}
@@ -158,7 +91,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto flex flex-col px-6 py-6 gap-1">
+        <nav className="flex-1 flex flex-col px-6 py-6 gap-1">
           {links.map((link) => (
             <NavLink
               key={link.to}
@@ -173,47 +106,9 @@ export default function Navbar() {
               {link.label}
             </NavLink>
           ))}
-
-          {user && (
-            <>
-              <NavLink
-                to="/profile"
-                onClick={() => setOpen(false)}
-                className="py-3 text-base font-medium text-ink-soft border-b border-ink/5"
-              >
-                {t('nav_my_profile')}
-              </NavLink>
-              {isAdmin && (
-                <NavLink
-                  to="/admin"
-                  onClick={() => setOpen(false)}
-                  className="py-3 text-base font-medium text-ink-soft border-b border-ink/5"
-                >
-                  {t('nav_admin_panel')}
-                </NavLink>
-              )}
-            </>
-          )}
         </nav>
 
-        <div className="p-6 pt-4 border-t border-ink/10 shrink-0">
-          {user ? (
-            <button
-              onClick={() => {
-                logout()
-                setOpen(false)
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-red-50 text-red-600 rounded-full font-semibold"
-            >
-              <LogOut size={16} />
-              {t('nav_logout')}
-            </button>
-          ) : (
-            <Button to="/login" variant="primary" className="w-full" onClick={() => setOpen(false)}>
-              {t('nav_login')}
-            </Button>
-          )}
-        </div>
+        <div className="h-6 shrink-0" />
       </aside>
     </header>
   )

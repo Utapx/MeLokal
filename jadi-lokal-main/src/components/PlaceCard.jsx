@@ -1,5 +1,5 @@
-import React from 'react'
-import { Heart, Clock, Map } from 'lucide-react'
+import React, { useState } from 'react'
+import { Heart, Clock, Map, Quote } from 'lucide-react'
 import { categoryMeta } from '../data/places.js'
 import { useLanguage } from '../context/LanguageContext'
 
@@ -17,29 +17,56 @@ function ScoreBar({ label, value }) {
   )
 }
 
+const PLACE_IMAGES = {
+  food: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80',
+  cafe: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=900&q=80',
+  culture: 'https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=900&q=80',
+  shopping: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80',
+  'hidden-gem': 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80',
+  transport: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=80',
+  attraction: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=900&q=80',
+}
+
 export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewDetails, compact = false }) {
-  const meta = categoryMeta[place.category]
+  const meta = categoryMeta[place.category] || categoryMeta['hidden-gem']
   const { t } = useLanguage()
+  const [imageFailed, setImageFailed] = useState(false)
+  const imageSrc = place.image || PLACE_IMAGES[place.category] || PLACE_IMAGES['hidden-gem']
+  const localScore = Number(place.localScore)
+  const score = Number.isFinite(localScore) ? localScore : 0
+  const scores = place.scores || {
+    localFavorite: 0,
+    touristCrowd: 0,
+    valueForMoney: 0,
+    authenticity: 0,
+  }
 
   return (
     <div className="bg-white rounded-2xl shadow-soft w-full overflow-hidden flex flex-col">
       {/* Image Banner */}
       <div className="h-32 w-full bg-ink/5 relative overflow-hidden shrink-0">
-        <img
-          src={place.image || `https://loremflickr.com/600/400/${encodeURIComponent(place.name)},${place.destinationSlug},indonesia/all?lock=${place.id.replace(/\D/g, '') || 1}`}
-          alt={place.name}
-          className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
-          loading="lazy"
-        />
+        {!imageFailed ? (
+          <img
+            src={imageSrc}
+            alt={place.name}
+            className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
+            loading="lazy"
+            onError={() => setImageFailed(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-sawah-light via-paper to-turmeric-light flex items-center justify-center">
+            <span className="font-display text-3xl text-sawah-dark/60" aria-hidden="true">MeLokal</span>
+          </div>
+        )}
       </div>
 
       <div className="p-4 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-2">
         <div>
           <span className="text-xs text-turmeric-dark font-semibold uppercase tracking-wide">
-            {meta.label}
+            {t(meta.translationKey)}
           </span>
-          <h4 className="font-display font-semibold text-ink leading-snug mt-0.5">{place.name}</h4>
+          <h4 className="font-display font-semibold text-ink leading-snug mt-0.5">{place.name || 'Local place'}</h4>
         </div>
         {onToggleFavorite && (
           <button
@@ -54,15 +81,20 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
         )}
       </div>
 
-      <p className="text-sm text-ink-soft italic mt-2">&ldquo;{place.quote}&rdquo;</p>
+      <div className="mt-3 rounded-xl bg-sawah-light/60 border border-sawah/10 p-3">
+        <p className="text-[10px] uppercase tracking-wide font-semibold text-sawah-dark flex items-center gap-1.5">
+          <Quote size={12} /> {t('place_local_review')}
+        </p>
+        <p className="text-sm text-ink-soft italic mt-1">&ldquo;{place.quote || 'Community-submitted local place.'}&rdquo;</p>
+      </div>
 
       <div className="flex flex-col gap-2 mt-4 text-sm bg-ink/5 p-3 rounded-xl border border-ink/5">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-ink flex items-center gap-1.5 min-w-[70px]">
-            {t('place_local_score')} {place.localScore.toFixed(1)}
+            {t('place_local_score')} {score.toFixed(1)}
           </span>
           <span className="text-ink-soft">·</span>
-          <span className="text-sawah-dark font-medium truncate">{place.priceRange}</span>
+          <span className="text-sawah-dark font-medium truncate">{place.priceRange || '—'}</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -70,7 +102,7 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
             <Clock size={14} /> {t('place_hours_label')}
           </span>
           <span className="text-ink-soft">·</span>
-          <span className="text-ink font-medium">{place.operationalHours || getOperationalHours(place.category, place.name, t)}</span>
+          <span className="text-ink font-medium">{place.operationalHours || getOperationalHours(place.category, place.name || '', t)}</span>
         </div>
 
         <a
@@ -85,10 +117,10 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
 
       {!compact && (
         <div className="mt-3 pt-3 border-t border-ink/10">
-          <ScoreBar label="Local Favorite" value={place.scores.localFavorite} />
-          <ScoreBar label="Tourist Crowd" value={place.scores.touristCrowd} />
-          <ScoreBar label="Value for Money" value={place.scores.valueForMoney} />
-          <ScoreBar label="Authenticity" value={place.scores.authenticity} />
+          <ScoreBar label={t('place_local_favorite')} value={scores.localFavorite} />
+          <ScoreBar label={t('place_tourist_crowd')} value={scores.touristCrowd} />
+          <ScoreBar label={t('place_value_for_money')} value={scores.valueForMoney} />
+          <ScoreBar label={t('place_authenticity')} value={scores.authenticity} />
         </div>
       )}
 

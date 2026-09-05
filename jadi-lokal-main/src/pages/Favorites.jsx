@@ -103,13 +103,13 @@ export default function Favorites() {
                   <div className="grid sm:grid-cols-2 gap-4 mt-4">
                     {j.dayPlans.map((day) => (
                       <div key={day.dayNumber} className="bg-paper rounded-xl p-4">
-                        <p className="font-semibold text-sm text-ink mb-2">DAY {day.dayNumber}</p>
+                        <p className="font-semibold text-sm text-ink mb-2">{t('planner_day')} {day.dayNumber}</p>
                         <ul className="space-y-1">
                           {day.slots.map((slot, i) => (
                             <li key={i} className="text-xs text-ink-soft">
                               <span className="font-semibold text-ink">{slot.time}</span> —{' '}
                               {slot.place ? (
-                                <>{categoryMeta[slot.place.category].label}: {slot.place.name}</>
+                                <>{t(categoryMeta[slot.place.category].translationKey)}: {slot.place.name}</>
                               ) : (
                                 slot.label
                               )}

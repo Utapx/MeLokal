@@ -10,19 +10,22 @@ import LocalTipCard from '../components/LocalTipCard.jsx'
 import { getDestinationBySlug } from '../data/destinations.js'
 import { getPlacesByDestination } from '../data/places.js'
 import { getTipsByDestination } from '../data/tips.js'
+import { tipsEn, tipsFallbackEn } from '../data/tips.en.js'
+import { fetchApprovedDestinations } from '../services/submissionsApi.js'
 import { getFavoriteIds, toggleFavorite } from '../utils/storage.js'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Destination() {
   const { slug } = useParams()
   const destination = getDestinationBySlug(slug)
-  const places = getPlacesByDestination(slug)
-  const t = getTipsByDestination(slug)
+  const [approvedPlaces, setApprovedPlaces] = useState([])
+  const places = [...getPlacesByDestination(slug), ...approvedPlaces.filter((place) => place.destinationSlug === slug)]
+  const { lang, t: tr } = useLanguage()
+  const t = lang === 'en' ? (tipsEn[slug] || tipsFallbackEn) : getTipsByDestination(slug)
   const [favoriteIds, setFavoriteIds] = useState([])
-  const { t: tr } = useLanguage()
-
   useEffect(() => {
     setFavoriteIds(getFavoriteIds())
+    fetchApprovedDestinations().then(setApprovedPlaces).catch(() => {})
   }, [])
 
   if (!destination) {
@@ -41,15 +44,17 @@ export default function Destination() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
         <div className="relative h-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col justify-end pb-10 text-white">
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="turmeric">{destination.badge}</Badge>
+            <Badge variant="turmeric">{lang === 'en' ? (destination.badgeEn || destination.badge) : destination.badge}</Badge>
             <span className="text-sm text-white/80 flex items-center gap-1">
-              <MapPin size={14} /> {destination.region}
+              <MapPin size={14} /> {lang === 'en' ? (destination.regionEn || destination.region) : destination.region}
             </span>
           </div>
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <div>
               <h1 className="font-display text-4xl md:text-5xl font-semibold">{destination.name}</h1>
-              <p className="text-white/85 mt-2 max-w-xl">{destination.tagline}</p>
+              <p className="text-white/85 mt-2 max-w-xl">
+                {lang === 'en' ? (destination.taglineEn || destination.tagline) : destination.tagline}
+              </p>
             </div>
             <LocalScoreStamp score={destination.localScore} size="lg" />
           </div>
@@ -57,7 +62,9 @@ export default function Destination() {
       </div>
 
       <Section eyebrow={tr('destination_guide_eyebrow')} title={tr('destination_guide_title')}>
-        <p className="text-ink-soft max-w-2xl -mt-8 mb-10">{destination.description}</p>
+        <p className="text-ink-soft max-w-2xl -mt-8 mb-10">
+          {lang === 'en' ? (destination.descriptionEn || destination.description) : destination.description}
+        </p>
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* Bahasa Lokal */}

@@ -17,8 +17,9 @@ export default function Button({
   type = 'button',
   className = '',
   icon: Icon,
+  disabled = false,
 }) {
-  const classes = `inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 active:scale-95 ${VARIANTS[variant]} ${className}`
+  const classes = `inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-all duration-200 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 ${VARIANTS[variant]} ${className}`
 
   const content = (
     <>
@@ -42,7 +43,7 @@ export default function Button({
     )
   }
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {content}
     </button>
   )

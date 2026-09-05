@@ -4,14 +4,16 @@ import { Search, MapPin, Compass, Route, Sparkles } from 'lucide-react'
 import Section from '../components/Section.jsx'
 import Button from '../components/Button.jsx'
 import DestinationCard from '../components/DestinationCard.jsx'
+import BrandLogo from '../components/BrandLogo.jsx'
 import { destinations } from '../data/destinations.js'
 import { tips } from '../data/tips.js'
+import { tipsEn, tipsFallbackEn } from '../data/tips.en.js'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Home() {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
 
   function handleSearch(e) {
     e.preventDefault()
@@ -27,9 +29,7 @@ export default function Home() {
           <span className="inline-flex items-center gap-2 bg-white/10 border border-white/25 rounded-full px-4 py-1.5 text-xs uppercase tracking-widest mb-6">
             <Compass size={14} /> {t('home_hero_badge')}
           </span>
-          <h1 className="font-display text-5xl md:text-7xl font-semibold leading-[1.05]">
-            MeLokal
-          </h1>
+          <BrandLogo className="justify-center text-white text-5xl md:text-7xl" iconClassName="text-turmeric" />
           <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto italic">
             {t('home_hero_quote')}
           </p>
@@ -112,7 +112,7 @@ export default function Home() {
       >
         <div className="grid md:grid-cols-2 gap-5">
           {destinations.map((d) => {
-            const tip = tips[d.slug]
+            const tip = lang === 'en' ? (tipsEn[d.slug] || tipsFallbackEn) : (tips[d.slug] || tipsFallbackEn)
             return (
               <div key={d.slug} className="bg-white/5 border border-white/10 rounded-2xl p-6">
                 <p className="text-xs uppercase tracking-wide text-turmeric mb-2">{d.name}</p>

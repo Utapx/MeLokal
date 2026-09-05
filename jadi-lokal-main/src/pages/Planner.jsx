@@ -317,28 +317,11 @@ export default function Planner() {
                   </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  {itineraryPlaces.map((place) => (
-                    <article key={place.id} className="bg-sawah-light rounded-2xl p-5">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-xs uppercase tracking-wide text-sawah-dark font-semibold">
-                            {categoryMeta[place.category].label}
-                          </p>
-                          <h3 className="font-display font-semibold text-lg text-ink mt-1">{place.name}</h3>
-                        </div>
-                        <span className="text-sm font-semibold text-turmeric-dark shrink-0">★ {place.localScore.toFixed(1)}</span>
-                      </div>
-                      <p className="text-sm text-ink-soft italic mt-3">&ldquo;{place.quote}&rdquo;</p>
-                    </article>
-                  ))}
-                </div>
-
                 <div className="space-y-6">
                   {itinerary.dayPlans.map((day) => (
                     <div key={day.dayNumber} className="bg-white rounded-2xl shadow-soft p-6">
                       <div className="flex items-baseline justify-between gap-3 mb-4">
-                        <h3 className="font-display font-semibold text-lg text-ink">DAY {day.dayNumber}</h3>
+                        <h3 className="font-display font-semibold text-lg text-ink">{t('planner_day')} {day.dayNumber}</h3>
                         <p className="text-xs text-ink-soft">
                           {t('planner_day_start')}: {day.startPoint.label} · {day.totalDistanceKm.toFixed(1)} km
                         </p>
@@ -354,7 +337,7 @@ export default function Planner() {
                                 {slot.label}
                                 {slot.place && (
                                   <span className="text-ink-soft font-normal">
-                                    {' '}— {categoryMeta[slot.place.category].label}: {slot.place.name}
+                                    {' '}— {t(categoryMeta[slot.place.category].translationKey)}: {slot.place.name}
                                   </span>
                                 )}
                               </p>
@@ -385,6 +368,23 @@ export default function Planner() {
                         ))}
                       </ul>
                     </div>
+                  ))}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mt-6">
+                  {itineraryPlaces.map((place) => (
+                    <article key={place.id} className="bg-sawah-light rounded-2xl p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-sawah-dark font-semibold">
+                            {t(categoryMeta[place.category].translationKey)}
+                          </p>
+                          <h3 className="font-display font-semibold text-lg text-ink mt-1">{place.name}</h3>
+                        </div>
+                        <span className="text-sm font-semibold text-turmeric-dark shrink-0">★ {place.localScore.toFixed(1)}</span>
+                      </div>
+                      <p className="text-sm text-ink-soft italic mt-3">&ldquo;{place.quote}&rdquo;</p>
+                    </article>
                   ))}
                 </div>
                     </>
