@@ -7,6 +7,7 @@ import Section from '../components/Section.jsx'
 import { destinations, getDestinationBySlug } from '../data/destinations.js'
 import { getPlacesByDestination, categoryMeta } from '../data/places.js'
 import { getFavoriteIds, toggleFavorite } from '../utils/storage.js'
+import { useLanguage } from '../context/LanguageContext'
 
 const ALL_CATEGORIES = Object.keys(categoryMeta)
 
@@ -16,6 +17,7 @@ export default function MapPage() {
   const [activeCategories, setActiveCategories] = useState(ALL_CATEGORIES)
   const [selectedPlace, setSelectedPlace] = useState(null)
   const [favoriteIds, setFavoriteIds] = useState([])
+  const { t } = useLanguage()
 
   useEffect(() => {
     setFavoriteIds(getFavoriteIds())
@@ -34,7 +36,7 @@ export default function MapPage() {
   // Tidak ada slug -> tampilkan picker destinasi
   if (!destination) {
     return (
-      <Section eyebrow="Local Map" title="Pilih destinasi untuk membuka peta interaktif">
+      <Section eyebrow={t('map_eyebrow')} title={t('map_pick_title')}>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {destinations.map((d) => (
             <Link
@@ -60,10 +62,10 @@ export default function MapPage() {
       <div className="bg-sawah-light py-8 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <h1 className="font-display text-2xl md:text-3xl font-semibold text-ink">
-            Local Map — {destination.name}
+            {t('map_title_prefix')} — {destination.name}
           </h1>
           <p className="text-ink-soft text-sm mt-1">
-            Klik marker untuk melihat detail tempat ala warga lokal.
+            {t('map_subtitle')}
           </p>
 
           <div className="flex flex-wrap gap-2 mt-4">
@@ -80,7 +82,7 @@ export default function MapPage() {
                       : 'bg-white text-ink-soft border-ink/15 hover:border-sawah'
                   }`}
                 >
-                  {meta.label}
+                  {t(meta.translationKey)}
                 </button>
               )
             })}
@@ -98,12 +100,12 @@ export default function MapPage() {
         </div>
         {places.length === 0 && (
           <p className="text-center text-ink-soft text-sm mt-4">
-            Tidak ada tempat untuk kategori yang dipilih. Coba aktifkan kategori lain.
+            {t('map_no_places')}
           </p>
         )}
       </div>
 
-      <Modal open={!!selectedPlace} onClose={() => setSelectedPlace(null)} title="Detail Tempat">
+      <Modal open={!!selectedPlace} onClose={() => setSelectedPlace(null)} title={t('map_detail_modal_title')}>
         {selectedPlace && (
           <PlaceCard
             place={selectedPlace}

@@ -10,21 +10,7 @@ import { categoryMeta, getPlacesByDestination } from '../data/places.js'
 import { generateItinerary, recalculateRouteDistances } from '../utils/planner.js'
 import { saveJourney, downloadJourney } from '../utils/storage.js'
 import { fetchLivePlaces } from '../services/placesApi.js'
-
-const INTERESTS = [
-  { key: 'kuliner', label: 'Kuliner' },
-  { key: 'budaya', label: 'Budaya' },
-  { key: 'alam', label: 'Alam' },
-  { key: 'nongkrong', label: 'Nongkrong' },
-  { key: 'hidden-gem', label: 'Temuan Lokal' },
-  { key: 'belanja', label: 'Belanja' },
-]
-
-const BUDGETS = [
-  { key: 'hemat', label: 'Hemat' },
-  { key: 'medium', label: 'Medium' },
-  { key: 'premium', label: 'Premium' },
-]
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Planner() {
   const [params] = useSearchParams()
@@ -40,6 +26,22 @@ export default function Planner() {
   const [livePlaces, setLivePlaces] = useState(null)
   const [placesLoading, setPlacesLoading] = useState(false)
   const [placesError, setPlacesError] = useState('')
+  const { t } = useLanguage()
+
+  const INTERESTS = [
+    { key: 'kuliner', labelKey: 'interest_kuliner' },
+    { key: 'budaya', labelKey: 'interest_budaya' },
+    { key: 'alam', labelKey: 'interest_alam' },
+    { key: 'nongkrong', labelKey: 'interest_nongkrong' },
+    { key: 'hidden-gem', labelKey: 'interest_hidden_gem' },
+    { key: 'belanja', labelKey: 'interest_belanja' },
+  ]
+
+  const BUDGETS = [
+    { key: 'hemat', labelKey: 'budget_hemat' },
+    { key: 'medium', labelKey: 'budget_medium' },
+    { key: 'premium', labelKey: 'budget_premium' },
+  ]
 
   function toggleInterest(key) {
     setInterests((prev) =>
@@ -51,7 +53,7 @@ export default function Planner() {
     const selectedStart = startPointId === 'current'
       ? currentLocation
       : startPointId === 'center'
-        ? { ...destination.center, label: `Pusat kota ${destination.name}` }
+        ? { ...destination.center, label: `${t('planner_city_center')} ${destination.name}` }
         : (livePlaces || getPlacesByDestination(destinationSlug)).find((place) => place.id === startPointId)
     const result = generateItinerary(destinationSlug, days, budget, interests, selectedStart, livePlaces)
     setItinerary(result)
@@ -60,17 +62,17 @@ export default function Planner() {
 
   function handleUseCurrentLocation() {
     if (!navigator.geolocation) {
-      setLocationError('Browser ini tidak mendukung lokasi perangkat.')
+      setLocationError(t('planner_geolocation_unsupported'))
       return
     }
 
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
-        setCurrentLocation({ lat: coords.latitude, lng: coords.longitude, label: 'Lokasi saya' })
+        setCurrentLocation({ lat: coords.latitude, lng: coords.longitude, label: t('planner_my_location') })
         setStartPointId('current')
         setLocationError('')
       },
-      () => setLocationError('Lokasi tidak bisa diakses. Pilih pusat kota atau tempat lain.'),
+      () => setLocationError(t('planner_geolocation_denied')),
     )
   }
 
@@ -146,9 +148,9 @@ export default function Planner() {
   return (
     <div>
       <div className="bg-turmeric-light py-14 px-6 md:px-12 text-center">
-        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink">Smart Trip Planner</h1>
+        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink">{t('planner_title')}</h1>
         <p className="text-ink-soft mt-2 max-w-xl mx-auto">
-          Rekomendasi disusun dengan algoritma sederhana berbasis data lokal — bukan AI generatif.
+          {t('planner_subtitle')}
         </p>
       </div>
 
@@ -157,7 +159,7 @@ export default function Planner() {
           {/* FORM */}
           <div className="bg-white rounded-3xl p-6 shadow-soft h-fit">
             <div className="mb-6">
-              <p className="font-semibold text-ink mb-2 text-sm">Mau ke mana?</p>
+              <p className="font-semibold text-ink mb-2 text-sm">{t('planner_where')}</p>
               <div className="grid grid-cols-2 gap-2">
                 {destinations.map((d) => (
                   <button
@@ -176,30 +178,30 @@ export default function Planner() {
             </div>
 
             <div className="mb-6">
-              <p className="font-semibold text-ink mb-2 text-sm">Mulai dari mana?</p>
+              <p className="font-semibold text-ink mb-2 text-sm">{t('planner_start_point')}</p>
               <select
                 value={startPointId}
                 onChange={(event) => setStartPointId(event.target.value)}
                 className="w-full bg-paper text-ink-soft border border-ink/15 rounded-xl px-3 py-2 text-sm outline-none focus:border-sawah"
               >
-                <option value="center">Pusat kota {destination.name}</option>
+                <option value="center">{t('planner_city_center')} {destination.name}</option>
                 {(livePlaces || getPlacesByDestination(destinationSlug)).map((place) => (
                   <option key={place.id} value={place.id}>{place.name}</option>
                 ))}
-                {currentLocation && <option value="current">Lokasi saya</option>}
+                {currentLocation && <option value="current">{t('planner_my_location')}</option>}
               </select>
               <button
                 type="button"
                 onClick={handleUseCurrentLocation}
                 className="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-sawah-dark hover:text-sawah"
               >
-                <LocateFixed size={14} /> Gunakan lokasi saya
+                <LocateFixed size={14} /> {t('planner_use_my_location')}
               </button>
               {locationError && <p className="text-xs text-red-600 mt-1">{locationError}</p>}
             </div>
 
             <div className="mb-6">
-              <p className="font-semibold text-ink mb-2 text-sm">Berapa hari?</p>
+              <p className="font-semibold text-ink mb-2 text-sm">{t('planner_days')}</p>
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((n) => (
                   <button
@@ -218,7 +220,7 @@ export default function Planner() {
             </div>
 
             <div className="mb-6">
-              <p className="font-semibold text-ink mb-2 text-sm">Budget?</p>
+              <p className="font-semibold text-ink mb-2 text-sm">{t('planner_budget')}</p>
               <div className="flex gap-2">
                 {BUDGETS.map((b) => (
                   <button
@@ -230,14 +232,14 @@ export default function Planner() {
                         : 'bg-paper text-ink-soft border-ink/15 hover:border-turmeric'
                     }`}
                   >
-                    {b.label}
+                    {t(b.labelKey)}
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="mb-6">
-              <p className="font-semibold text-ink mb-2 text-sm">Kamu suka apa?</p>
+              <p className="font-semibold text-ink mb-2 text-sm">{t('planner_interests')}</p>
               <div className="flex flex-wrap gap-2">
                 {INTERESTS.map((i) => (
                   <button
@@ -249,18 +251,18 @@ export default function Planner() {
                         : 'bg-paper text-ink-soft border-ink/15 hover:border-sawah'
                     }`}
                   >
-                    {i.label}
+                    {t(i.labelKey)}
                   </button>
                 ))}
               </div>
             </div>
 
             <Button onClick={handleGenerate} variant="primary" icon={Sparkles} className="w-full">
-              {placesLoading ? 'Memuat tempat...' : 'Generate Journey'}
+              {placesLoading ? t('planner_loading_places') : t('planner_generate')}
             </Button>
             {placesError && (
               <p className="text-xs text-ink-soft mt-3">
-                Data live tidak tersedia, memakai data cadangan lokal. ({placesError})
+                {t('planner_live_data_unavailable')} ({placesError})
               </p>
             )}
           </div>
@@ -270,8 +272,8 @@ export default function Planner() {
             {!itinerary ? (
               <EmptyState
                 icon="🗺️"
-                title="Itinerary kamu akan muncul di sini"
-                description="Lengkapi form di samping, lalu tekan Generate Journey."
+                title={t('planner_empty_title')}
+                description={t('planner_empty_desc')}
               />
             ) : (
               <div className="animate-slideUp">
@@ -286,24 +288,24 @@ export default function Planner() {
                 <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
                   <div>
                     <p className="text-xs uppercase tracking-wide text-turmeric-dark font-semibold">
-                      {destination.name} · {itinerary.days} hari · {budget}
+                      {destination.name} · {itinerary.days} {t('favorites_days_unit')} · {budget}
                     </p>
                     <h2 className="font-display text-2xl md:text-3xl font-semibold text-ink">
-                      Your Local Journey
+                      {t('planner_your_journey')}
                     </h2>
                   </div>
                   <Button onClick={handleSave} variant="secondary" icon={saved ? CheckCircle2 : Save}>
-                    {saved ? 'Tersimpan' : 'Save My Journey'}
+                    {saved ? t('planner_saved') : t('planner_save')}
                   </Button>
                   <Button onClick={() => downloadJourney(itinerary, destination.name)} variant="ghost" icon={Download}>
-                    Download
+                    {t('planner_download')}
                   </Button>
                 </div>
 
                 <div className="bg-turmeric-light border border-turmeric/30 rounded-xl px-4 py-3 mb-6 text-xs text-ink-soft">
                   {livePlaces
-                    ? 'Tempat diambil dari OpenStreetMap. Cek kembali jam buka, harga, dan kondisi terbaru sebelum berangkat.'
-                    : 'Data tempat cadangan masih bersifat ilustratif. Cek kembali jam buka dan kondisi terbaru sebelum berangkat.'}
+                    ? t('planner_live_note')
+                    : t('planner_fallback_note')}
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-soft p-3 mb-6">
@@ -311,34 +313,17 @@ export default function Planner() {
                     <MapView center={destination.center} places={itineraryPlaces} />
                   </div>
                   <p className="text-xs text-ink-soft px-2 pt-3">
-                    Peta menampilkan semua tempat dalam itinerary. Jarak di bawah tiap agenda adalah estimasi garis lurus.
+                    {t('planner_map_note')}
                   </p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  {itineraryPlaces.map((place) => (
-                    <article key={place.id} className="bg-sawah-light rounded-2xl p-5">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-xs uppercase tracking-wide text-sawah-dark font-semibold">
-                            {categoryMeta[place.category].label}
-                          </p>
-                          <h3 className="font-display font-semibold text-lg text-ink mt-1">{place.name}</h3>
-                        </div>
-                        <span className="text-sm font-semibold text-turmeric-dark shrink-0">★ {place.localScore.toFixed(1)}</span>
-                      </div>
-                      <p className="text-sm text-ink-soft italic mt-3">&ldquo;{place.quote}&rdquo;</p>
-                    </article>
-                  ))}
                 </div>
 
                 <div className="space-y-6">
                   {itinerary.dayPlans.map((day) => (
                     <div key={day.dayNumber} className="bg-white rounded-2xl shadow-soft p-6">
                       <div className="flex items-baseline justify-between gap-3 mb-4">
-                        <h3 className="font-display font-semibold text-lg text-ink">DAY {day.dayNumber}</h3>
+                        <h3 className="font-display font-semibold text-lg text-ink">{t('planner_day')} {day.dayNumber}</h3>
                         <p className="text-xs text-ink-soft">
-                          Mulai: {day.startPoint.label} · {day.totalDistanceKm.toFixed(1)} km
+                          {t('planner_day_start')}: {day.startPoint.label} · {day.totalDistanceKm.toFixed(1)} km
                         </p>
                       </div>
                       <ul className="space-y-3">
@@ -352,24 +337,24 @@ export default function Planner() {
                                 {slot.label}
                                 {slot.place && (
                                   <span className="text-ink-soft font-normal">
-                                    {' '}— {categoryMeta[slot.place.category].label}: {slot.place.name}
+                                    {' '}— {t(categoryMeta[slot.place.category].translationKey)}: {slot.place.name}
                                   </span>
                                 )}
                               </p>
                               {slot.place && (
                                 <p className="text-xs text-ink-soft">
-                                  {slot.place.priceRange} · {slot.distanceFromPrevious.toFixed(1)} km dari titik sebelumnya
+                                  {slot.place.priceRange} · {slot.distanceFromPrevious.toFixed(1)} km {t('planner_from_prev')}
                                 </p>
                               )}
                               {slot.alternatives.length > 0 && (
                                 <label className="inline-flex items-center gap-2 text-xs text-sawah-dark mt-2">
-                                  Ganti tempat:
+                                  {t('planner_replace_place')}
                                   <select
                                     value=""
                                     onChange={(event) => handleReplacePlace(day.dayNumber, i, event.target.value)}
                                     className="bg-paper border border-sawah/30 rounded-lg px-2 py-1 text-xs text-ink outline-none"
                                   >
-                                    <option value="">Pilih alternatif</option>
+                                    <option value="">{t('planner_choose_alternative')}</option>
                                     {slot.alternatives.map((alternative) => (
                                       <option key={alternative.id} value={alternative.id}>
                                         {alternative.name}
@@ -383,6 +368,23 @@ export default function Planner() {
                         ))}
                       </ul>
                     </div>
+                  ))}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 mt-6">
+                  {itineraryPlaces.map((place) => (
+                    <article key={place.id} className="bg-sawah-light rounded-2xl p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-xs uppercase tracking-wide text-sawah-dark font-semibold">
+                            {t(categoryMeta[place.category].translationKey)}
+                          </p>
+                          <h3 className="font-display font-semibold text-lg text-ink mt-1">{place.name}</h3>
+                        </div>
+                        <span className="text-sm font-semibold text-turmeric-dark shrink-0">★ {place.localScore.toFixed(1)}</span>
+                      </div>
+                      <p className="text-sm text-ink-soft italic mt-3">&ldquo;{place.quote}&rdquo;</p>
+                    </article>
                   ))}
                 </div>
                     </>

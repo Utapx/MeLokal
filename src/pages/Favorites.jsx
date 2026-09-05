@@ -13,10 +13,12 @@ import {
   getSavedJourneys,
   deleteJourney,
 } from '../utils/storage.js'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Favorites() {
   const [favoriteIds, setFavoriteIds] = useState([])
   const [journeys, setJourneys] = useState([])
+  const { lang, t } = useLanguage()
 
   useEffect(() => {
     setFavoriteIds(getFavoriteIds())
@@ -36,18 +38,18 @@ export default function Favorites() {
   return (
     <div>
       <div className="bg-sawah-light py-14 px-6 md:px-12 text-center">
-        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink">Favorites</h1>
+        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink">{t('favorites_title')}</h1>
         <p className="text-ink-soft mt-2 max-w-xl mx-auto">
-          Semua tempat dan itinerary yang kamu simpan — tersimpan di perangkat ini, tanpa akun.
+          {t('favorites_subtitle')}
         </p>
       </div>
 
-      <Section eyebrow="Tempat Favorit" title="Tempat yang sudah kamu simpan">
+      <Section eyebrow={t('favorites_places_eyebrow')} title={t('favorites_places_title')}>
         {favoritePlaces.length === 0 ? (
           <EmptyState
             icon="❤️"
-            title="Belum ada tempat favorit"
-            description="Tekan ikon hati pada tempat di halaman Destination atau Local Map untuk menyimpannya di sini."
+            title={t('favorites_places_empty_title')}
+            description={t('favorites_places_empty_desc')}
           />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -64,13 +66,13 @@ export default function Favorites() {
         )}
       </Section>
 
-      <Section eyebrow="Perjalanan Tersimpan" title="Itinerary hasil Trip Planner">
+      <Section eyebrow={t('favorites_journeys_eyebrow')} title={t('favorites_journeys_title')}>
         {journeys.length === 0 ? (
           <EmptyState
             icon="🗺️"
-            title="Belum ada perjalanan tersimpan"
-            description="Buat itinerary di Trip Planner, lalu tekan Save My Journey."
-            action={<Button to="/plan" variant="primary">Buat Itinerary</Button>}
+            title={t('favorites_journeys_empty_title')}
+            description={t('favorites_journeys_empty_desc')}
+            action={<Button to="/plan" variant="primary">{t('home_planner_cta')}</Button>}
           />
         ) : (
           <div className="space-y-6">
@@ -81,18 +83,18 @@ export default function Favorites() {
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div>
                       <p className="text-xs uppercase tracking-wide text-turmeric-dark font-semibold">
-                        {new Date(j.savedAt).toLocaleDateString('id-ID', {
+                        {new Date(j.savedAt).toLocaleDateString(lang === 'en' ? 'en-US' : 'id-ID', {
                           day: 'numeric', month: 'long', year: 'numeric',
                         })}
                       </p>
                       <h3 className="font-display text-xl font-semibold text-ink">
-                        {destination?.name} · {j.days} hari · {j.budget}
+                        {destination?.name} · {j.days} {t('favorites_days_unit')} · {j.budget}
                       </h3>
                     </div>
                     <button
                       onClick={() => handleDeleteJourney(j.id)}
                       className="p-2 rounded-full text-clay hover:bg-clay-light transition-colors"
-                      aria-label="Hapus perjalanan"
+                      aria-label={t('favorites_delete_journey')}
                     >
                       <Trash2 size={18} />
                     </button>
@@ -101,13 +103,13 @@ export default function Favorites() {
                   <div className="grid sm:grid-cols-2 gap-4 mt-4">
                     {j.dayPlans.map((day) => (
                       <div key={day.dayNumber} className="bg-paper rounded-xl p-4">
-                        <p className="font-semibold text-sm text-ink mb-2">DAY {day.dayNumber}</p>
+                        <p className="font-semibold text-sm text-ink mb-2">{t('planner_day')} {day.dayNumber}</p>
                         <ul className="space-y-1">
                           {day.slots.map((slot, i) => (
                             <li key={i} className="text-xs text-ink-soft">
                               <span className="font-semibold text-ink">{slot.time}</span> —{' '}
                               {slot.place ? (
-                                <>{categoryMeta[slot.place.category].label}: {slot.place.name}</>
+                                <>{t(categoryMeta[slot.place.category].translationKey)}: {slot.place.name}</>
                               ) : (
                                 slot.label
                               )}

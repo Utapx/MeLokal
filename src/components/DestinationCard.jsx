@@ -2,8 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import LocalScoreStamp from './LocalScoreStamp.jsx'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function DestinationCard({ destination }) {
+  const { lang, t } = useLanguage()
+
   return (
     <Link
       to={`/destination/${destination.slug}`}
@@ -21,18 +24,22 @@ export default function DestinationCard({ destination }) {
           <LocalScoreStamp score={destination.localScore} size="sm" />
         </div>
         <div className="absolute bottom-3 left-4 right-4 text-white">
-          <p className="text-xs uppercase tracking-wide opacity-80">{destination.region}</p>
+          <p className="text-xs uppercase tracking-wide opacity-80">
+            {lang === 'en' ? (destination.regionEn || destination.region) : destination.region}
+          </p>
           <h3 className="text-2xl font-display font-semibold">{destination.name}</h3>
         </div>
       </div>
       <div className="p-5">
-        <p className="text-sm text-ink-soft line-clamp-2">{destination.tagline}</p>
+        <p className="text-sm text-ink-soft line-clamp-2">
+          {lang === 'en' ? (destination.taglineEn || destination.tagline) : destination.tagline}
+        </p>
         <div className="flex items-center justify-between mt-4">
           <span className="text-xs text-ink-soft">
-            {destination.recommendationCount} rekomendasi lokal
+            {destination.recommendationCount} {t('destination_card_local_recs')}
           </span>
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-sawah-dark group-hover:gap-2 transition-all">
-            Explore <ArrowUpRight size={16} />
+            {t('destination_card_explore')} <ArrowUpRight size={16} />
           </span>
         </div>
       </div>

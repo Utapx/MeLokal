@@ -2,73 +2,67 @@ import React from 'react'
 import { Compass, MapPin, Users, Sparkles, Info } from 'lucide-react'
 import Section from '../components/Section.jsx'
 import Button from '../components/Button.jsx'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function About() {
+  const { t } = useLanguage()
+
   return (
     <div>
       <div className="bg-sawah text-white py-20 px-6 md:px-12 text-center">
         <Compass size={36} className="text-turmeric mx-auto mb-4" />
-        <h1 className="font-display text-4xl font-semibold">Tentang MeLokal</h1>
+        <h1 className="font-display text-4xl font-semibold">{t('about_title')}</h1>
         <p className="text-white/85 mt-3 max-w-xl mx-auto italic">
-          &ldquo;Datang sebagai turis, pulang dengan pengalaman seperti warga lokal.&rdquo;
+          {t('about_quote')}
         </p>
       </div>
 
       <Section
-        eyebrow="Konsep"
-        title="Dari Tourist Information menjadi Local Experience."
+        eyebrow={t('about_concept_eyebrow')}
+        title={t('about_concept_title')}
       >
         <p className="text-ink-soft max-w-2xl">
-          Kebanyakan platform wisata menjawab pertanyaan &ldquo;apa yang bisa dikunjungi?&rdquo;.
-          MeLokal dibangun untuk menjawab pertanyaan yang lebih dalam: &ldquo;bagaimana cara
-          memahami dan menjalani kehidupan di daerah ini seperti warga lokal?&rdquo; — mulai dari
-          bahasa sehari-hari, kebiasaan, transportasi, harga wajar, hingga etika yang tidak
-          tertulis di buku panduan wisata manapun.
+          {t('about_concept_body')}
         </p>
 
         <div className="grid md:grid-cols-3 gap-5 mt-10">
           <div className="bg-white rounded-2xl p-6 shadow-soft">
             <MapPin className="text-sawah-dark mb-3" size={24} />
-            <h3 className="font-display font-semibold text-ink mb-1">Perspektif Warga</h3>
+            <h3 className="font-display font-semibold text-ink mb-1">{t('about_pillar1_title')}</h3>
             <p className="text-sm text-ink-soft">
-              Setiap tips, tempat, dan rekomendasi disusun dari sudut pandang kebiasaan warga
-              lokal, bukan sekadar daftar tempat populer.
+              {t('about_pillar1_body')}
             </p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-soft">
             <Sparkles className="text-sawah-dark mb-3" size={24} />
-            <h3 className="font-display font-semibold text-ink mb-1">Personalisasi</h3>
+            <h3 className="font-display font-semibold text-ink mb-1">{t('about_pillar2_title')}</h3>
             <p className="text-sm text-ink-soft">
-              Trip Planner menyesuaikan itinerary dengan budget, durasi, dan minatmu — bukan
-              rekomendasi generik untuk semua orang.
+              {t('about_pillar2_body')}
             </p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-soft">
             <Users className="text-sawah-dark mb-3" size={24} />
-            <h3 className="font-display font-semibold text-ink mb-1">Untuk Semua Gaya Traveling</h3>
+            <h3 className="font-display font-semibold text-ink mb-1">{t('about_pillar3_title')}</h3>
             <p className="text-sm text-ink-soft">
-              Dari solo traveler, backpacker, mahasiswa yang bepergian, hingga wisatawan dengan
-              budget terbatas.
+              {t('about_pillar3_body')}
             </p>
           </div>
         </div>
       </Section>
 
-      <Section eyebrow="Catatan" title="Status project ini">
+      <Section eyebrow={t('about_status_eyebrow')} title={t('about_status_title')}>
         <div className="grid md:grid-cols-[auto_1fr] gap-5 md:gap-7 items-start bg-turmeric-light rounded-3xl p-6 md:p-8">
           <div className="w-12 h-12 rounded-2xl bg-white/70 text-turmeric-dark flex items-center justify-center">
             <Info size={24} aria-hidden="true" />
           </div>
           <div>
             <p className="text-xs uppercase tracking-wide font-semibold text-turmeric-dark mb-2">
-              Prototype untuk eksplorasi konsep
+              {t('about_status_badge')}
             </p>
             <p className="text-sm text-ink-soft max-w-3xl">
-            MeLokal adalah <strong className="text-ink">prototype/fungsional website</strong>{' '}
-            yang dikembangkan untuk keperluan perlombaan pengembangan website mahasiswa. Seluruh
-            data destinasi, tempat, harga, dan Local Score pada website ini merupakan data contoh
-            (demo) untuk simulasi konsep — bukan hasil riset lapangan real-time maupun direktori
-            bisnis terverifikasi.
+              {t('about_status_body_before')}{' '}
+              <strong className="text-ink">{t('about_status_strong')}</strong>{' '}
+              {t('about_status_body_after')}
             </p>
           </div>
         </div>
@@ -76,9 +70,9 @@ export default function About() {
 
       <Section className="text-center">
         <h2 className="font-display text-2xl md:text-3xl font-semibold text-ink mb-4">
-          Siap mulai merasakan jadi lokal?
+          {t('about_final_cta_title')}
         </h2>
-        <Button to="/explore" variant="secondary">Explore Indonesia</Button>
+        <Button to="/explore" variant="secondary">{t('home_explore_indonesia')}</Button>
       </Section>
     </div>
   )

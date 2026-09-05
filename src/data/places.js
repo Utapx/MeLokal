@@ -538,6 +538,7 @@ const allPlaces = [
     id: 'jkt-1',
     destinationSlug: 'jakarta',
     name: 'Kawasan Blok M (M Bloc Space & Gultik)',
+    searchTerms: 'Blok M M Bloc Space Gule Tikungan Gultik',
     category: 'hidden-gem',
     lat: -6.2443, lng: 106.7981,
     priceRange: 'Bervariasi',
@@ -1240,11 +1241,11 @@ export const getPlacesByDestination = (slug) =>
 export const getPlaceById = (id) => places.find((p) => p.id === id)
 
 export const categoryMeta = {
-  food: { label: 'Kuliner Legendaris', shortLabel: 'Kuliner' },
-  'hidden-gem': { label: 'Temuan Lokal', shortLabel: 'Temuan' },
-  culture: { label: 'Budaya & Sejarah', shortLabel: 'Budaya' },
-  cafe: { label: 'Kopi & Nongkrong', shortLabel: 'Kafe' },
-  shopping: { label: 'Pasar & Belanja', shortLabel: 'Belanja' },
-  transport: { label: 'Transportasi', shortLabel: 'Transportasi' },
-  attraction: { label: 'Taman Hiburan', shortLabel: 'Hiburan' },
+  food: { label: 'Kuliner Legendaris', shortLabel: 'Kuliner', translationKey: 'category_food' },
+  'hidden-gem': { label: 'Temuan Lokal', shortLabel: 'Temuan', translationKey: 'category_hidden_gem' },
+  culture: { label: 'Budaya & Sejarah', shortLabel: 'Budaya', translationKey: 'category_culture' },
+  cafe: { label: 'Kopi & Nongkrong', shortLabel: 'Kafe', translationKey: 'category_cafe' },
+  shopping: { label: 'Pasar & Belanja', shortLabel: 'Belanja', translationKey: 'category_shopping' },
+  transport: { label: 'Transportasi', shortLabel: 'Transportasi', translationKey: 'category_transport' },
+  attraction: { label: 'Taman Hiburan', shortLabel: 'Hiburan', translationKey: 'category_attraction' },
 }
