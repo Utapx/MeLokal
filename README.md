@@ -4,12 +4,12 @@
 ### Discover local experiences. Plan a journey that feels like your own.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Coming%20Soon-success?style=for-the-badge)]()
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)]()
-[![License](https://img.shields.io/badge/License-Prototype-blue?style=for-the-badge)]()
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Utapx/MeLokal)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 **Submission for ITECHNO CUP 2026 - Web Development**
 
-**Team: **
+**Team: MeLokal Team**
 
 </div>
 
@@ -36,6 +36,14 @@
 MeLokal adalah platform web untuk menemukan destinasi dan pengalaman lokal di Indonesia, lalu mengubahnya menjadi perjalanan yang lebih personal.
 
 MeLokal tidak hanya menampilkan daftar tempat. Setiap destinasi dilengkapi informasi lokal seperti bahasa sehari-hari, kuliner, transportasi, kisaran budget, etika, tips warga, peta interaktif, dan rekomendasi itinerary.
+
+### Latar Belakang
+
+Banyak platform wisata berfokus pada tempat-tempat populer, sementara informasi tentang kebiasaan lokal, kuliner, transportasi, etika, dan rekomendasi dari warga masih tersebar. MeLokal dibuat untuk membantu wisatawan memahami sebuah destinasi secara lebih utuh sebelum berkunjung.
+
+### Solusi yang Ditawarkan
+
+MeLokal menggabungkan discovery destinasi, local guide, peta interaktif, rekomendasi tempat, dan itinerary planner dalam satu aplikasi. Pengguna dapat menyesuaikan perjalanan berdasarkan durasi, budget, minat, dan titik mulai perjalanan.
 
 ### Tujuan
 
@@ -79,7 +87,7 @@ Wisatawan yang ingin menjelajahi Indonesia dengan pengalaman yang lebih personal
 
 ### Live Demo
 
-URL demo: https://melokal.vercel.app/
+URL demo: Menyusul
 
 ### Screenshot
 
@@ -188,8 +196,8 @@ project-root/
 ### Instalasi
 
 ```bash
-git clone <REPOSITORY_URL>
-cd itechno-main
+git clone https://github.com/Utapx/MeLokal.git
+cd MeLokal
 npm install
 ```
 
@@ -301,14 +309,11 @@ Alur manual yang direkomendasikan:
 
 ## Tim Developer
 
-Data tim sengaja dikosongkan untuk sementara.
-
 | Nama | Peran | GitHub |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
+| **Muhammad Jeffri** | Project Manager, Product Flow, Feature Planning, Dataset Research | [mhmdjefr](https://github.com/mhmdjefr) |
+| **Putra Ramadhan Gurnaso** | Lead Developer, Frontend Development, Application Structure | [Utapx](https://github.com/Utapx) |
+| **Nathaniel Pangestu** | Logo, Branding, Color Direction, UI/UX Design | [Nstu-fi](https://github.com/Nstu-fi) |
 
 ---
 
@@ -325,12 +330,12 @@ Data tim sengaja dikosongkan untuk sementara.
 
 ## Lisensi
 
-Proyek ini dibuat untuk keperluan kompetisi pengembangan website mahasiswa dan berstatus prototype.
+Proyek ini menggunakan [MIT License](LICENSE). MeLokal dikembangkan sebagai prototype untuk ITECHNO CUP 2026.
 
 ---
 
 <div align="center">
 
-**Made for ITECHNO CUP 2026**
+**Made with care by MeLokal Team for ITECHNO CUP 2026**
 
 </div>
