@@ -3,6 +3,7 @@
 
 export const translations = {
   // Navbar
+  nav_home: { id: 'Beranda', en: 'Home' },
   nav_explore: { id: 'Eksplor', en: 'Explore' },
   nav_map: { id: 'Peta', en: 'Map' },
   nav_plan: { id: 'Rencanakan Trip', en: 'Plan Trip' },

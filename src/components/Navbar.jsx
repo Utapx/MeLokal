@@ -10,6 +10,7 @@ export default function Navbar() {
   const { lang, toggleLanguage, t } = useLanguage()
 
   const links = [
+    { to: '/', label: t('nav_home') },
     { to: '/explore', label: t('nav_explore') },
     { to: '/map', label: t('nav_map') },
     { to: '/plan', label: t('nav_plan') },
@@ -17,6 +18,7 @@ export default function Navbar() {
     { to: '/about', label: t('nav_about') },
     { to: '/submit-destination', label: t('nav_submit_destination') },
   ]
+  const desktopLinks = links.filter((link) => link.to !== '/')
 
   useEffect(() => setOpen(false), [location.pathname])
 
@@ -31,12 +33,12 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-16 border-b border-ink/10 bg-paper/90 backdrop-blur">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
-        <NavLink to="/" aria-label="MeLokal home">
+        <NavLink to="/" aria-label="MeLokal home" title={t('nav_home')}>
           <BrandLogo className="text-xl" />
         </NavLink>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {links.map((link) => (
+          {desktopLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
