@@ -87,7 +87,7 @@ Wisatawan yang ingin menjelajahi Indonesia dengan pengalaman yang lebih personal
 
 ### Live Demo
 
-URL demo: Menyusul
+https://melokal.vercel.app/
 
 ### Screenshot
 
