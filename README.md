@@ -9,7 +9,7 @@
 
 **Submission for ITECHNO CUP 2026 - Web Development**
 
-**Team: MeLokal Team**
+**Team: kata nathan opsional, dia yang bayar soalnya**
 
 </div>
 
