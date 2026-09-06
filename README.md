@@ -98,7 +98,9 @@ URL demo: Menyusul
 
 Link video: 
 
----
+https://www.youtube.com/shorts/dXftK4c_mBQ \\main feature demo
+
+https://youtube.com/shorts/p1Xo8RT4jFQ?si=s6nxvM6a_EO_bwHK \\ side feature demo
 
 ## Teknologi
 
