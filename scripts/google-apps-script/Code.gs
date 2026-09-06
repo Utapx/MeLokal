@@ -123,11 +123,11 @@ function getSheet() {
 }
 
 function extractCoordinates(value) {
-  const url = String(value || '')
+  const url = resolveGoogleMapsUrl(String(value || ''))
   const patterns = [
     /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
     /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,
-    /[?&](?:q|query)=(-?\d+(?:\.\d+)?)[,%20]+(-?\d+(?:\.\d+)?)/,
+    /[?&](?:q|query)=(-?\d+(?:\.\d+)?)(?:,|%2C|%20)(-?\d+(?:\.\d+)?)/i,
   ]
   for (const pattern of patterns) {
     const match = url.match(pattern)
@@ -138,6 +138,21 @@ function extractCoordinates(value) {
     }
   }
   return null
+}
+
+function resolveGoogleMapsUrl(url) {
+  if (!/^https?:\/\//i.test(url)) return url
+  let currentUrl = url
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const response = UrlFetchApp.fetch(currentUrl, {
+      followRedirects: false,
+      muteHttpExceptions: true,
+    })
+    const location = response.getHeaders().Location || response.getHeaders().location
+    if (!location) return currentUrl
+    currentUrl = location
+  }
+  return currentUrl
 }
 
 function isAdmin(token) {

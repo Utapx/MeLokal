@@ -14,7 +14,11 @@ import { useLanguage } from '../context/LanguageContext'
 
 export default function Planner() {
   const [params] = useSearchParams()
-  const [destinationSlug, setDestinationSlug] = useState(params.get('destination') || destinations[0].slug)
+  const requestedDestinationSlug = params.get('destination')
+  const initialDestinationSlug = destinations.some((destination) => destination.slug === requestedDestinationSlug)
+    ? requestedDestinationSlug
+    : destinations[0].slug
+  const [destinationSlug, setDestinationSlug] = useState(initialDestinationSlug)
   const [days, setDays] = useState(3)
   const [budget, setBudget] = useState('hemat')
   const [interests, setInterests] = useState(['kuliner'])
@@ -124,6 +128,8 @@ export default function Planner() {
 
   useEffect(() => {
     let active = true
+    setLivePlaces(null)
+    setStartPointId('center')
     setPlacesLoading(true)
     setPlacesError('')
 

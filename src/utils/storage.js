@@ -22,7 +22,8 @@ function writeJSON(key, value) {
 
 // ---------- Favorites (place ids) ----------
 export function getFavoriteIds() {
-  return readJSON(FAVORITES_KEY, [])
+  const favoriteIds = readJSON(FAVORITES_KEY, [])
+  return Array.isArray(favoriteIds) ? favoriteIds : []
 }
 
 export function isFavorite(placeId) {
@@ -40,7 +41,8 @@ export function toggleFavorite(placeId) {
 
 // ---------- Saved journeys (itineraries) ----------
 export function getSavedJourneys() {
-  return readJSON(JOURNEYS_KEY, [])
+  const journeys = readJSON(JOURNEYS_KEY, [])
+  return Array.isArray(journeys) ? journeys : []
 }
 
 export function saveJourney(journey) {

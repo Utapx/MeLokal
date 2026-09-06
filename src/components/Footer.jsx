@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import BrandLogo from './BrandLogo.jsx'
 
@@ -15,10 +16,10 @@ export default function Footer() {
         <div>
           <p className="text-white font-semibold text-sm mb-3">{t('footer_explore_heading')}</p>
           <ul className="space-y-2 text-sm">
-            <li><a href="/explore" className="hover:text-turmeric transition-colors">{t('footer_explore_destination')}</a></li>
-            <li><a href="/plan" className="hover:text-turmeric transition-colors">{t('footer_trip_planner')}</a></li>
-            <li><a href="/favorites" className="hover:text-turmeric transition-colors">{t('footer_favorites')}</a></li>
-            <li><a href="/about" className="hover:text-turmeric transition-colors">{t('footer_about_melokal')}</a></li>
+            <li><Link to="/explore" className="hover:text-turmeric transition-colors">{t('footer_explore_destination')}</Link></li>
+            <li><Link to="/plan" className="hover:text-turmeric transition-colors">{t('footer_trip_planner')}</Link></li>
+            <li><Link to="/favorites" className="hover:text-turmeric transition-colors">{t('footer_favorites')}</Link></li>
+            <li><Link to="/about" className="hover:text-turmeric transition-colors">{t('footer_about_melokal')}</Link></li>
           </ul>
         </div>
         <div>

@@ -7,6 +7,7 @@ import PlaceCard from '../components/PlaceCard.jsx'
 import { places } from '../data/places.js'
 import { getDestinationBySlug } from '../data/destinations.js'
 import { categoryMeta } from '../data/places.js'
+import { fetchApprovedDestinations } from '../services/submissionsApi.js'
 import {
   getFavoriteIds,
   toggleFavorite,
@@ -17,15 +18,26 @@ import { useLanguage } from '../context/LanguageContext'
 
 export default function Favorites() {
   const [favoriteIds, setFavoriteIds] = useState([])
+  const [approvedPlaces, setApprovedPlaces] = useState([])
   const [journeys, setJourneys] = useState([])
   const { lang, t } = useLanguage()
 
   useEffect(() => {
     setFavoriteIds(getFavoriteIds())
     setJourneys(getSavedJourneys())
+    let active = true
+    fetchApprovedDestinations().then((items) => {
+      if (active) setApprovedPlaces(items)
+    }).catch(() => {})
+    return () => {
+      active = false
+    }
   }, [])
 
-  const favoritePlaces = places.filter((p) => favoriteIds.includes(p.id))
+  const allPlaces = [...places, ...approvedPlaces]
+  const favoritePlaces = allPlaces
+    .filter((place, index, items) => items.findIndex((item) => item.id === place.id) === index)
+    .filter((place) => favoriteIds.includes(place.id))
 
   function handleToggleFavorite(placeId) {
     setFavoriteIds(toggleFavorite(placeId))
