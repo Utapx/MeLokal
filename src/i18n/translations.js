@@ -12,6 +12,11 @@ export const translations = {
   nav_menu_open: { id: 'Buka menu navigasi', en: 'Open navigation menu' },
   nav_menu_close: { id: 'Tutup menu navigasi', en: 'Close navigation menu' },
   nav_submit_destination: { id: 'Tambah Destinasi', en: 'Suggest a Place' },
+  map_loading: { id: 'Memuat peta...', en: 'Loading map...' },
+  map_loading_body: { id: 'Sebentar, kami sedang menyiapkan peta dan marker tempat.', en: 'We are preparing the map and place markers.' },
+  map_error_title: { id: 'Peta tidak dapat dimuat', en: 'Map could not load' },
+  map_error_body: { id: 'Periksa koneksi internet, lalu coba lagi.', en: 'Check your internet connection, then try again.' },
+  map_retry: { id: 'Coba lagi', en: 'Try again' },
 
   // Destination submissions
   submit_destination_title: { id: 'Tambah Tempat Lokal', en: 'Suggest a Local Place' },

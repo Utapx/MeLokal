@@ -34,3 +34,24 @@ test('mobile navigation exposes a clear Home link', async ({ page }) => {
   await expect(page).toHaveURL(/\/$/)
   await expect(page.getByRole('link', { name: 'Explore Indonesia', exact: true })).toBeVisible()
 })
+
+test('mobile header fits without horizontal overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/map')
+
+  const layoutWidth = await page.evaluate(() => ({
+    documentWidth: document.documentElement.scrollWidth,
+    viewportWidth: window.innerWidth,
+  }))
+  expect(layoutWidth.documentWidth).toBeLessThanOrEqual(layoutWidth.viewportWidth)
+
+  const logo = await page.getByRole('link', { name: 'MeLokal home' }).boundingBox()
+  const language = await page.getByRole('button', { name: 'Switch language' }).boundingBox()
+  const menu = await page.getByRole('button', { name: 'Open navigation menu' }).boundingBox()
+
+  expect(logo).not.toBeNull()
+  expect(language).not.toBeNull()
+  expect(menu).not.toBeNull()
+  expect(logo.x + logo.width).toBeLessThan(language.x)
+  expect(language.x + language.width).toBeLessThan(menu.x)
+})

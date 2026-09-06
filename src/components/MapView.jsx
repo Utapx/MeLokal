@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import { categoryMeta } from '../data/places.js'
@@ -27,17 +27,34 @@ function buildIcon(label) {
 
 export default function MapView({ center, zoom = 13, places, onViewDetails }) {
   const { lang, t } = useLanguage()
+  const [mapKey, setMapKey] = useState(0)
+  const [mapReady, setMapReady] = useState(false)
+  const [tileError, setTileError] = useState(false)
+
+  function retryMap() {
+    setMapReady(false)
+    setTileError(false)
+    setMapKey((current) => current + 1)
+  }
+
   return (
-    <MapContainer
-      center={[center.lat, center.lng]}
-      zoom={zoom}
-      scrollWheelZoom={true}
-      style={{ height: '100%', width: '100%', borderRadius: '1.5rem' }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <div className="relative h-full w-full">
+      <MapContainer
+        key={mapKey}
+        center={[center.lat, center.lng]}
+        zoom={zoom}
+        scrollWheelZoom={true}
+        whenReady={() => setMapReady(true)}
+        style={{ height: '100%', width: '100%', borderRadius: '1.5rem' }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          eventHandlers={{
+            load: () => setMapReady(true),
+            tileerror: () => setTileError(true),
+          }}
+        />
       {places.map((place) => {
         const meta = categoryMeta[place.category]
         return (
@@ -61,7 +78,29 @@ export default function MapView({ center, zoom = 13, places, onViewDetails }) {
             </Popup>
           </Marker>
         )
-      })}
-    </MapContainer>
+        })}
+      </MapContainer>
+      {(!mapReady || tileError) && (
+        <div className="absolute inset-0 z-[1000] flex items-center justify-center rounded-3xl bg-paper/85 p-6 text-center backdrop-blur-sm">
+          <div className="max-w-xs">
+            <p className="font-semibold text-ink">
+              {tileError ? t('map_error_title') : t('map_loading')}
+            </p>
+            <p className="mt-1 text-sm text-ink-soft">
+              {tileError ? t('map_error_body') : t('map_loading_body')}
+            </p>
+            {tileError && (
+              <button
+                type="button"
+                onClick={retryMap}
+                className="mt-4 rounded-full bg-sawah px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-sawah-dark"
+              >
+                {t('map_retry')}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }

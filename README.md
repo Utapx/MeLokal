@@ -3,13 +3,13 @@
 # MeLokal
 ### Discover local experiences. Plan a journey that feels like your own.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Coming%20Soon-success?style=for-the-badge)]()
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-success?style=for-the-badge)](https://melokal.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/Utapx/MeLokal)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 **Submission for ITECHNO CUP 2026 - Web Development**
 
-**Team: kata nathan opsional, dia yang bayar soalnya**
+**Team: MeLokal Team**
 
 </div>
 
@@ -105,9 +105,9 @@ https://melokal.vercel.app/
 
 Link video: 
 
-https://www.youtube.com/shorts/dXftK4c_mBQ \\main feature demo
+https://www.youtube.com/shorts/dXftK4c_mBQ (main feature demo)
 
-https://youtube.com/shorts/p1Xo8RT4jFQ?si=s6nxvM6a_EO_bwHK \\ side feature demo
+https://youtube.com/shorts/p1Xo8RT4jFQ?si=s6nxvM6a_EO_bwHK (side feature demo)
 
 ## Teknologi
 
@@ -186,7 +186,10 @@ project-root/
 │   ├── App.jsx                   # Application routes
 │   ├── index.css                 # Global styling
 │   └── main.jsx                  # Application entry point
+├── tests/                        # Unit tests for planner and storage
+├── e2e/                          # Playwright browser tests
 ├── .env.example                  # Environment variable template
+├── playwright.config.js          # Playwright configuration
 ├── GOOGLE_SHEETS_SUBMISSIONS.md  # Apps Script setup guide
 ├── package.json
 └── vite.config.js
@@ -297,11 +300,12 @@ Aplikasi menggunakan Overpass API untuk mengambil tempat tambahan dari OpenStree
 
 ## Testing dan Validasi
 
-Project saat ini belum memiliki test suite khusus.
-
-Validasi build:
+Unit dan E2E test tersedia untuk memvalidasi planner, storage, route utama, fallback Planner, dan navigasi mobile.
 
 ```bash
+npm test
+npx playwright install chromium
+npm run test:e2e
 npm run build
 ```
 
