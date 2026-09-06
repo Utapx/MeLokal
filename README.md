@@ -93,6 +93,13 @@ https://melokal.vercel.app/
 
 <img width="1829" height="862" alt="image" src="https://github.com/user-attachments/assets/3c9aa739-dbee-47a0-8edc-f087f996623a" />
 
+<img width="1816" height="1088" alt="image" src="https://github.com/user-attachments/assets/ceca484a-87a4-46eb-9a1b-345fe0ed9172" />
+
+<img width="1841" height="1097" alt="Screenshot 2026-09-06 232122" src="https://github.com/user-attachments/assets/d04b0c06-970f-4183-abf0-df7b1c213510" />
+
+<img width="1838" height="1100" alt="Screenshot 2026-09-06 232148" src="https://github.com/user-attachments/assets/55a8220b-4f9d-4ba6-b2e7-26e288cfc3e9" />
+
+
 
 ### Video Demo
 
