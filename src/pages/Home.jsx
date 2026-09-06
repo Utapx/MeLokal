@@ -36,16 +36,18 @@ export default function Home() {
             {t('home_hero_quote')}
           </p>
 
-          <form onSubmit={handleSearch} className="mt-10 max-w-xl mx-auto flex items-center gap-2 bg-white rounded-full p-2 shadow-soft">
-            <Search size={18} className="text-ink-soft ml-3" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="text"
-              placeholder={t('home_search_placeholder')}
-              className="flex-1 outline-none text-ink text-sm py-2 bg-transparent"
-            />
-            <Button type="submit" variant="secondary">{t('home_search_button')}</Button>
+          <form onSubmit={handleSearch} className="mt-10 max-w-xl mx-auto flex flex-col sm:flex-row items-stretch gap-2 bg-white rounded-3xl sm:rounded-full p-2 shadow-soft">
+            <div className="flex min-w-0 flex-1 items-center">
+              <Search size={18} className="text-ink-soft ml-3 shrink-0" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                placeholder={t('home_search_placeholder')}
+                className="min-w-0 flex-1 outline-none text-ink text-sm py-2 bg-transparent"
+              />
+            </div>
+            <Button type="submit" variant="secondary" className="shrink-0">{t('home_search_button')}</Button>
           </form>
 
           <div className="mt-10 border-t border-white/15 pt-8 flex flex-col items-center gap-3">
