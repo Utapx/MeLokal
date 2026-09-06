@@ -74,12 +74,12 @@ export default function Explore() {
 
   return (
     <div>
-      <div className="bg-sawah-light py-14 px-6 md:px-12 text-center">
-        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink">{t('explore_title')}</h1>
-        <p className="text-ink-soft mt-2 max-w-xl mx-auto">
+      <div className="bg-sawah-light px-6 py-20 text-center md:px-12 md:py-24">
+        <h1 className="font-display text-3xl font-semibold leading-tight text-ink md:text-4xl">{t('explore_title')}</h1>
+        <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-soft">
           {t('explore_subtitle')}
         </p>
-        <div className="mt-6 max-w-md mx-auto flex items-center gap-2 bg-white rounded-full p-2 shadow-soft">
+        <div className="mx-auto mt-8 flex max-w-md items-center gap-2 rounded-full bg-white p-2 shadow-soft">
           <Search size={18} className="text-ink-soft ml-2" />
           <input
             value={query}
@@ -91,7 +91,7 @@ export default function Explore() {
         </div>
       </div>
 
-      <Section>
+      <Section className="pt-20 md:pt-24">
         {filtered.length === 0 && matchingPlaces.length === 0 ? (
           <EmptyState
             title={t('explore_empty_title')}

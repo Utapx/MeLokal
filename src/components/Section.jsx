@@ -6,7 +6,7 @@ export default function Section({ eyebrow, title, subtitle, children, className 
   const eyebrowColor = dark ? 'text-turmeric' : 'text-turmeric-dark'
 
   return (
-    <section id={id} className={`py-16 md:py-24 px-6 md:px-12 ${className}`}>
+    <section id={id} className={`surface-section ${dark ? 'surface-section-dark' : ''} py-16 md:py-24 px-6 md:px-12 ${className}`}>
       <div className="max-w-6xl mx-auto">
         {(eyebrow || title) && (
           <div className="mb-10 md:mb-14 animate-slideUp">

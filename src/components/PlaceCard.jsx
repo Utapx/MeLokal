@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { Heart, Clock, Map, Quote } from 'lucide-react'
 import { categoryMeta } from '../data/places.js'
 import { useLanguage } from '../context/LanguageContext'
+import foodImage from '../../Gambar/Gambar/Kuliner Legendaris.jpg'
+import cultureImage from '../../Gambar/Gambar/Budaya dan Sejarah.jpg'
+import cafeImage from '../../Gambar/Gambar/Kopi Nongkrong.jpg'
+import shoppingImage from '../../Gambar/Gambar/Pasar Belanja.jpg'
+import hiddenGemImage from '../../Gambar/Gambar/temuan lokal.jpg'
 
 function ScoreBar({ label, value }) {
   return (
@@ -18,13 +23,13 @@ function ScoreBar({ label, value }) {
 }
 
 const PLACE_IMAGES = {
-  food: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80',
-  cafe: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=900&q=80',
-  culture: 'https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=900&q=80',
-  shopping: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80',
-  'hidden-gem': 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80',
-  transport: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=80',
-  attraction: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=900&q=80',
+  food: foodImage,
+  cafe: cafeImage,
+  culture: cultureImage,
+  shopping: shoppingImage,
+  'hidden-gem': hiddenGemImage,
+  transport: hiddenGemImage,
+  attraction: cultureImage,
 }
 
 export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewDetails, compact = false }) {

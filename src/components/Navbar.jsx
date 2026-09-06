@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Menu, X, Languages } from 'lucide-react'
 import BrandLogo from './BrandLogo.jsx'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const location = useLocation()
   const { lang, toggleLanguage, t } = useLanguage()
 
   const links = [
@@ -17,6 +18,8 @@ export default function Navbar() {
     { to: '/submit-destination', label: t('nav_submit_destination') },
   ]
 
+  useEffect(() => setOpen(false), [location.pathname])
+
   // Kunci scroll body selagi sidebar mobile terbuka
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -26,20 +29,20 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-ink/10">
-      <div className="max-w-6xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50 h-16 border-b border-ink/10 bg-paper/90 backdrop-blur">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
         <NavLink to="/" aria-label="MeLokal home">
           <BrandLogo className="text-xl" />
         </NavLink>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-1 md:flex">
           {links.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors ${
-                  isActive ? 'text-sawah-dark' : 'text-ink-soft hover:text-ink'
+                `flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-sawah/10 hover:text-ink ${
+                  isActive ? 'bg-sawah/10 text-sawah-dark' : 'text-ink-soft'
                 }`
               }
             >
@@ -75,7 +78,7 @@ export default function Navbar() {
 
       {/* Sidebar navigasi mobile — slide-in dari kanan */}
       <aside
-        className={`md:hidden fixed inset-y-0 right-0 z-50 h-screen w-full bg-[#FAF6EC] shadow-2xl transform transition-transform duration-300 ease-out flex flex-col overflow-hidden ${
+        className={`md:hidden fixed top-3 right-3 z-50 h-[calc(100vh-1.5rem)] w-72 max-w-[80%] overflow-hidden rounded-2xl bg-paper shadow-2xl transform transition-transform duration-300 ease-out flex flex-col ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!open}

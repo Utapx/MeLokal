@@ -8,6 +8,29 @@ html {
 
 body {
   @apply bg-paper text-ink font-body;
+  background-color: #fbf6ec;
+  background-image: radial-gradient(circle at 10% 0%, rgba(227, 160, 44, 0.1), transparent 28rem);
+}
+
+.page-shell {
+  background: linear-gradient(180deg, rgba(251, 246, 236, 0.96), rgba(241, 233, 216, 0.72));
+}
+
+.hero-local {
+  background: linear-gradient(135deg, #241c15 0%, #2f2a25 56%, #203354 100%);
+}
+
+.surface-section {
+  background-color: rgba(251, 246, 236, 0.94);
+  background-image: radial-gradient(circle at 90% 10%, rgba(227, 160, 44, 0.08), transparent 22rem),
+    linear-gradient(rgba(36, 28, 21, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 28, 21, 0.035) 1px, transparent 1px);
+  background-size: auto, 28px 28px, 28px 28px;
+}
+
+.surface-section-dark {
+  background-color: #241c15;
+  background-image: radial-gradient(circle at 10% 0%, rgba(227, 160, 44, 0.16), transparent 26rem);
 }
 
 h1, h2, h3, h4 {

@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sawah text-white">
+      <section className="hero-local relative overflow-hidden text-paper">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,white,transparent_45%)]" />
         <div className="relative max-w-5xl mx-auto px-6 md:px-12 pt-24 pb-28 text-center animate-fadeIn">
           <span className="inline-flex items-center gap-2 bg-white/10 border border-white/25 rounded-full px-4 py-1.5 text-xs uppercase tracking-widest mb-6">
