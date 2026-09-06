@@ -83,7 +83,6 @@ URL demo: https://melokal.vercel.app/
 
 ### Screenshot
 
-![Uploading image.png…]()
 
 
 ### Video Demo
