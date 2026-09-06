@@ -32,9 +32,9 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-16 border-b border-ink/10 bg-paper/90 backdrop-blur">
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
-        <NavLink to="/" aria-label="MeLokal home" title={t('nav_home')}>
-          <BrandLogo className="text-xl" />
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
+        <NavLink to="/" aria-label="MeLokal home" title={t('nav_home')} className="shrink-0">
+          <BrandLogo className="text-lg sm:text-xl" />
         </NavLink>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -59,7 +59,7 @@ export default function Navbar() {
           <LanguageSwitch lang={lang} onToggle={toggleLanguage} />
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex shrink-0 items-center gap-1 md:hidden">
           <LanguageSwitch lang={lang} onToggle={toggleLanguage} compact />
           <button
             className="p-2 -mr-2 text-ink"
@@ -88,7 +88,7 @@ export default function Navbar() {
         aria-hidden={!open}
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-ink/10 shrink-0">
-          <BrandLogo />
+          <BrandLogo className="text-lg" />
           <button
             className="p-2 -mr-2 text-ink"
             onClick={() => setOpen(false)}
