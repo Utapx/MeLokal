@@ -337,7 +337,7 @@ export default function Planner() {
                                 {slot.label}
                                 {slot.place && (
                                   <span className="text-ink-soft font-normal">
-                                    {' '}— {t(categoryMeta[slot.place.category].translationKey)}: {slot.place.name}
+                                    {' '}{t(categoryMeta[slot.place.category].translationKey)}: {slot.place.name}
                                   </span>
                                 )}
                               </p>

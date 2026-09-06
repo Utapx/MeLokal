@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import { categoryMeta } from '../data/places.js'
 import { useLanguage } from '../context/LanguageContext'
+import { getLocalizedPriceRange, getLocalizedQuote } from '../utils/placeLocalization.js'
 import 'leaflet/dist/leaflet.css'
 
 function buildIcon(label) {
@@ -25,7 +26,7 @@ function buildIcon(label) {
 }
 
 export default function MapView({ center, zoom = 13, places, onViewDetails }) {
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
   return (
     <MapContainer
       center={[center.lat, center.lng]}
@@ -48,8 +49,8 @@ export default function MapView({ center, zoom = 13, places, onViewDetails }) {
                 </p>
                 <p className="font-display font-semibold text-ink leading-snug">{place.name}</p>
                 <p className="text-sm text-ink mt-1">{t('local_score')} {place.localScore.toFixed(1)}</p>
-                <p className="text-xs italic text-ink-soft mt-1">&ldquo;{place.quote}&rdquo;</p>
-                <p className="text-sm font-medium text-sawah-dark mt-1">{place.priceRange}</p>
+                <p className="text-xs italic text-ink-soft mt-1">&ldquo;{getLocalizedQuote(place, lang)}&rdquo;</p>
+                <p className="text-sm font-medium text-sawah-dark mt-1">{getLocalizedPriceRange(place, lang)}</p>
                 <button
                   onClick={() => onViewDetails && onViewDetails(place)}
                   className="mt-2 w-full text-xs font-semibold text-white bg-sawah hover:bg-sawah-dark rounded-full py-1.5 transition-colors"

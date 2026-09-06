@@ -1,4 +1,4 @@
-// Data demo/prototype — dibuat untuk simulasi konsep, bukan hasil riset lapangan real-time.
+// Data demo/prototype dibuat untuk simulasi konsep, bukan hasil riset lapangan real-time.
 import bandungImage from '../../Gambar/Gambar/Bandung.jpg'
 import yogyakartaImage from '../../Gambar/Gambar/Yogyakarta.jpg'
 import jakartaImage from '../../Gambar/Gambar/Jakarta - Monas.jpg'

@@ -99,6 +99,19 @@ export default function Explore() {
           />
         ) : (
           <div className="space-y-10">
+            {matchingPlaces.length > 0 && (
+              <div>
+                <h2 className="font-display text-2xl font-semibold text-ink mb-5">
+                  {t('explore_place_results')}
+                </h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {matchingPlaces.map((place) => (
+                    <PlaceCard key={place.id} place={place} compact />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {filtered.length > 0 && (
               <div>
                 {query.trim() && (
@@ -109,19 +122,6 @@ export default function Explore() {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                   {filtered.map((d) => (
                     <DestinationCard key={d.slug} destination={d} />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {matchingPlaces.length > 0 && (
-              <div>
-                <h2 className="font-display text-2xl font-semibold text-ink mb-5">
-                  {t('explore_place_results')}
-                </h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {matchingPlaces.map((place) => (
-                    <PlaceCard key={place.id} place={place} compact />
                   ))}
                 </div>
               </div>

@@ -226,6 +226,7 @@ const allPlaces = [
     localScore: 4.8,
     scores: { localFavorite: 90, touristCrowd: 70, valueForMoney: 92, authenticity: 95 },
     quote: 'Pasar tertua (1758). Cari area jamu dan bumbu di lantai dua timur untuk nuansa asli.',
+    quoteEn: 'The oldest market (1758). Visit the herbal medicine and spice area on the east side of the second floor for an authentic feel.',
   },
   {
     id: 'yog-3',

@@ -1,13 +1,13 @@
 // Kamus terjemahan untuk teks UI. Konten dataset (destinations.js, tips.js, places.js)
-// tetap berbahasa Indonesia — hanya elemen antarmuka (judul, label, tombol) yang diterjemahkan.
+// tetap berbahasa Indonesia, hanya elemen antarmuka (judul, label, tombol) yang diterjemahkan.
 
 export const translations = {
   // Navbar
-  nav_explore: { id: 'Explore', en: 'Explore' },
-  nav_map: { id: 'Map', en: 'Map' },
-  nav_plan: { id: 'Plan Trip', en: 'Plan Trip' },
-  nav_favorites: { id: 'Favorites', en: 'Favorites' },
-  nav_about: { id: 'About', en: 'About' },
+  nav_explore: { id: 'Eksplor', en: 'Explore' },
+  nav_map: { id: 'Peta', en: 'Map' },
+  nav_plan: { id: 'Rencanakan Trip', en: 'Plan Trip' },
+  nav_favorites: { id: 'Favorit', en: 'Favorites' },
+  nav_about: { id: 'Tentang', en: 'About' },
   nav_menu_open: { id: 'Buka menu navigasi', en: 'Open navigation menu' },
   nav_menu_close: { id: 'Tutup menu navigasi', en: 'Close navigation menu' },
   nav_submit_destination: { id: 'Tambah Destinasi', en: 'Suggest a Place' },
@@ -41,11 +41,20 @@ export const translations = {
   admin_reject: { id: 'Tolak', en: 'Reject' },
   admin_remove: { id: 'Hapus dari website', en: 'Remove from website' },
   admin_remove_confirm: { id: 'Hapus destinasi ini dari Google Sheets dan website?', en: 'Remove this destination from Google Sheets and the website?' },
+  admin_image_label: { id: 'Gambar tempat', en: 'Place image' },
+  admin_image_placeholder: { id: 'Tempel URL gambar dari Google Maps atau sumber lain', en: 'Paste an image URL from Google Maps or another source' },
+  admin_image_save: { id: 'Simpan gambar', en: 'Save image' },
+  admin_image_saving: { id: 'Menyimpan...', en: 'Saving...' },
+  admin_image_saved: { id: 'Gambar berhasil disimpan.', en: 'Image saved successfully.' },
+  admin_builtin_places_eyebrow: { id: 'Tempat bawaan website', en: 'Built-in places' },
+  admin_builtin_places_title: { id: 'Atur gambar tempat', en: 'Manage place images' },
+  admin_builtin_places_body: { id: 'Perubahan ini disimpan di browser ini dan langsung dipakai oleh kartu tempat.', en: 'Changes are saved in this browser and used immediately by place cards.' },
+  admin_builtin_places_search: { id: 'Cari nama tempat atau kota...', en: 'Search place or city...' },
 
   // Footer
   footer_tagline: {
-    id: 'Bukan sekadar wisatawan — rasakan hidup seperti warga lokal di setiap destinasi.',
-    en: 'Not just a tourist — experience life like a local in every destination.',
+    id: 'Bukan sekadar wisatawan, rasakan hidup seperti warga lokal di setiap destinasi.',
+    en: 'Not just a tourist, experience life like a local in every destination.',
   },
   footer_explore_heading: { id: 'Jelajahi', en: 'Explore' },
   footer_explore_destination: { id: 'Explore Destination', en: 'Explore Destination' },
@@ -58,18 +67,23 @@ export const translations = {
     en: 'All destination, place, price, and Local Score data on this website is sample (demo) data for a student competition concept simulation, not real-time field research.',
   },
   footer_bottom_line: {
-    id: 'Dibuat untuk perlombaan pengembangan website mahasiswa — MeLokal,',
-    en: 'Built for a student web development competition — MeLokal,',
+    id: 'Dibuat untuk perlombaan pengembangan website mahasiswa, MeLokal,',
+    en: 'Built for a student web development competition, MeLokal,',
   },
 
   // Home
   home_hero_badge: { id: 'Local Experience Platform', en: 'Local Experience Platform' },
   home_hero_quote: {
-    id: '“Bukan sekadar wisatawan — rasakan hidup seperti warga lokal di setiap destinasi.”',
-    en: '“Not just a tourist — experience life like a local in every destination.”',
+    id: '“Bukan sekadar wisatawan, rasakan hidup seperti warga lokal di setiap destinasi.”',
+    en: '“Not just a tourist, experience life like a local in every destination.”',
   },
   home_search_placeholder: { id: 'Mau menjelajah ke mana?', en: 'Where do you want to explore?' },
   home_search_button: { id: 'Cari', en: 'Search' },
+  home_plan_trip_cta: { id: 'Rencanakan Trip', en: 'Plan a Trip' },
+  home_plan_trip_cue: {
+    id: 'Temukan tempat, susun itinerary, dan buat perjalananmu.',
+    en: 'Discover places, build your itinerary, and make it yours.',
+  },
   home_explore_indonesia: { id: 'Explore Indonesia', en: 'Explore Indonesia' },
   home_storytelling_line1: { id: 'Traveling is easy.', en: 'Traveling is easy.' },
   home_storytelling_line2: { id: 'Living like a local is different.', en: 'Living like a local is different.' },
@@ -79,34 +93,44 @@ export const translations = {
     en: 'A typical travel website only answers one question.',
   },
   home_problem_subtitle: {
-    id: '"Apa yang bisa saya kunjungi?" — padahal pertanyaan yang lebih penting adalah bagaimana caranya benar-benar memahami tempat itu.',
-    en: '"What can I visit?" — when the more important question is how to really understand a place.',
+    id: '"Apa yang bisa saya kunjungi?" padahal pertanyaan yang lebih penting adalah bagaimana caranya benar-benar memahami tempat itu.',
+    en: '"What can I visit?" when the more important question is how to really understand a place.',
   },
   home_problem_1: { id: 'Tidak tahu bahasa/istilah lokal sehari-hari.', en: 'Not knowing everyday local language or terms.' },
   home_problem_2: { id: 'Tidak tahu kisaran harga wajar, rawan "harga turis".', en: 'Not knowing fair prices, at risk of "tourist pricing".' },
   home_problem_3: { id: 'Tidak tahu etika & aturan tidak tertulis setempat.', en: 'Not knowing local etiquette & unwritten rules.' },
   home_solution_heading: { id: 'Solusi MeLokal', en: 'The MeLokal Solution' },
   home_solution_body: {
-    id: 'MeLokal menyusun panduan dari sudut pandang warga: bahasa, kuliner, transportasi, budget, etika, dan tips praktis — lalu memadukannya dengan peta interaktif dan itinerary yang dipersonalisasi sesuai budget dan minatmu.',
-    en: "MeLokal builds guides from a local's point of view: language, food, transport, budget, etiquette, and practical tips — combined with an interactive map and an itinerary personalized to your budget and interests.",
+    id: 'MeLokal menyusun panduan dari sudut pandang warga: bahasa, kuliner, transportasi, budget, etika, dan tips praktis, lalu memadukannya dengan peta interaktif dan itinerary yang dipersonalisasi sesuai budget dan minatmu.',
+    en: "MeLokal builds guides from a local's point of view: language, food, transport, budget, etiquette, and practical tips, combined with an interactive map and an itinerary personalized to your budget and interests.",
   },
   home_explore_eyebrow: { id: 'Explore Indonesia', en: 'Explore Indonesia' },
   home_explore_title: { id: 'Pilih daerah, mulai pahami cara hidupnya.', en: 'Pick a region, start understanding its way of life.' },
+  home_discovery_planner_eyebrow: { id: 'Sudah tahu mau ke mana?', en: 'Know where you want to go?' },
+  home_discovery_planner_title: {
+    id: 'Gabungkan temuan lokalmu menjadi satu perjalanan.',
+    en: 'Turn your local finds into one journey.',
+  },
+  home_discovery_planner_body: {
+    id: 'Pilih destinasi, atur durasi, budget, dan minatmu untuk menyusun itinerary yang terasa personal.',
+    en: 'Choose a destination, set your duration, budget, and interests to build a personal itinerary.',
+  },
+  home_discovery_planner_cta: { id: 'Rencanakan Trip', en: 'Plan a Trip' },
   home_tips_eyebrow: { id: 'Live Like A Local', en: 'Live Like A Local' },
   home_tips_title: { id: 'Kalau mau jadi lokal, kamu harus tahu ini.', en: 'If you want to live like a local, you need to know this.' },
   home_map_eyebrow: { id: 'Local Map', en: 'Local Map' },
   home_map_title: { id: 'Semua tempat favorit warga, dalam satu peta.', en: "All of the locals' favorite spots, on one map." },
   home_map_heading: { id: 'Peta interaktif, bukan sekadar daftar tempat.', en: 'An interactive map, not just a list of places.' },
   home_map_body: {
-    id: 'Temukan tempat makan, hidden gem, budaya, cafe, hingga pasar lokal — lengkap dengan filter kategori dan Local Score di setiap titik.',
-    en: 'Find food spots, hidden gems, culture, cafes, and local markets — complete with category filters and a Local Score at every point.',
+    id: 'Temukan tempat makan, hidden gem, budaya, cafe, hingga pasar lokal, lengkap dengan filter kategori dan Local Score di setiap titik.',
+    en: 'Find food spots, hidden gems, culture, cafes, and local markets, complete with category filters and a Local Score at every point.',
   },
   home_map_open: { id: 'Buka Local Map', en: 'Open Local Map' },
   home_planner_eyebrow: { id: 'Smart Trip Planner', en: 'Smart Trip Planner' },
   home_planner_title: { id: 'Itinerary yang terasa personal, bukan generik.', en: 'An itinerary that feels personal, not generic.' },
   home_planner_body: {
-    id: 'Pilih destinasi, durasi, budget, dan minatmu — MeLokal menyusun itinerary harian berbasis rekomendasi warga lokal, siap dipakai dan disimpan.',
-    en: "Pick your destination, duration, budget, and interests — MeLokal builds a daily itinerary based on locals' recommendations, ready to use and save.",
+    id: 'Pilih destinasi, durasi, budget, dan minatmu, MeLokal menyusun itinerary harian berbasis rekomendasi warga lokal, siap dipakai dan disimpan.',
+    en: "Pick your destination, duration, budget, and interests, MeLokal builds a daily itinerary based on locals' recommendations, ready to use and save.",
   },
   home_planner_cta: { id: 'Buat Itinerary', en: 'Build an Itinerary' },
   home_final_cta_title: { id: "Don't just visit. Experience.", en: "Don't just visit. Experience." },
@@ -116,8 +140,8 @@ export const translations = {
   // Explore
   explore_title: { id: 'Explore Destination', en: 'Explore Destination' },
   explore_subtitle: {
-    id: 'Pilih daerah tujuanmu — setiap destinasi punya panduan hidup ala warga lokal.',
-    en: 'Pick your destination — every destination has a locals-style life guide.',
+    id: 'Pilih daerah tujuanmu, setiap destinasi punya panduan hidup ala warga lokal.',
+    en: 'Pick your destination, every destination has a locals-style life guide.',
   },
   explore_search_placeholder: { id: 'Cari kota, provinsi, atau tempat...', en: 'Search a city, province, or place...' },
   explore_empty_title: { id: 'Destinasi tidak ditemukan', en: 'No destination found' },
@@ -160,8 +184,8 @@ export const translations = {
   // Planner
   planner_title: { id: 'Smart Trip Planner', en: 'Smart Trip Planner' },
   planner_subtitle: {
-    id: 'Rekomendasi disusun dengan algoritma sederhana berbasis data lokal — bukan AI generatif.',
-    en: 'Recommendations are built with a simple algorithm based on local data — not generative AI.',
+    id: 'Rekomendasi disusun dengan algoritma sederhana berbasis data lokal, bukan AI generatif.',
+    en: 'Recommendations are built with a simple algorithm based on local data, not generative AI.',
   },
   planner_where: { id: 'Mau ke mana?', en: 'Where do you want to go?' },
   planner_start_point: { id: 'Mulai dari mana?', en: 'Where do you start from?' },
@@ -211,8 +235,8 @@ export const translations = {
   // Favorites
   favorites_title: { id: 'Favorites', en: 'Favorites' },
   favorites_subtitle: {
-    id: 'Semua tempat dan itinerary yang kamu simpan — tersimpan di perangkat ini, tanpa akun.',
-    en: 'All the places and itineraries you save — stored on this device, no account needed.',
+    id: 'Semua tempat dan itinerary yang kamu simpan, tersimpan di perangkat ini, tanpa akun.',
+    en: 'All the places and itineraries you save, stored on this device, no account needed.',
   },
   favorites_places_eyebrow: { id: 'Tempat Favorit', en: 'Favorite Places' },
   favorites_places_title: { id: 'Tempat yang sudah kamu simpan', en: "Places you've saved" },
@@ -237,8 +261,8 @@ export const translations = {
   about_concept_eyebrow: { id: 'Konsep', en: 'Concept' },
   about_concept_title: { id: 'Dari Tourist Information menjadi Local Experience.', en: 'From Tourist Information to Local Experience.' },
   about_concept_body: {
-    id: 'Kebanyakan platform wisata menjawab pertanyaan "apa yang bisa dikunjungi?". MeLokal dibangun untuk menjawab pertanyaan yang lebih dalam: "bagaimana cara memahami dan menjalani kehidupan di daerah ini seperti warga lokal?" — mulai dari bahasa sehari-hari, kebiasaan, transportasi, harga wajar, hingga etika yang tidak tertulis di buku panduan wisata manapun.',
-    en: 'Most travel platforms answer "what can I visit?". MeLokal was built to answer a deeper question: "how do I understand and live in this region like a local?" — from everyday language and habits to transport, fair prices, and etiquette that no travel guide writes down.',
+    id: 'Kebanyakan platform wisata menjawab pertanyaan "apa yang bisa dikunjungi?". MeLokal dibangun untuk menjawab pertanyaan yang lebih dalam: "bagaimana cara memahami dan menjalani kehidupan di daerah ini seperti warga lokal?" mulai dari bahasa sehari-hari, kebiasaan, transportasi, harga wajar, hingga etika yang tidak tertulis di buku panduan wisata manapun.',
+    en: 'Most travel platforms answer "what can I visit?". MeLokal was built to answer a deeper question: "how do I understand and live in this region like a local?" from everyday language and habits to transport, fair prices, and etiquette that no travel guide writes down.',
   },
   about_pillar1_title: { id: 'Perspektif Warga', en: "A Local's Perspective" },
   about_pillar1_body: {
@@ -247,8 +271,8 @@ export const translations = {
   },
   about_pillar2_title: { id: 'Personalisasi', en: 'Personalization' },
   about_pillar2_body: {
-    id: 'Trip Planner menyesuaikan itinerary dengan budget, durasi, dan minatmu — bukan rekomendasi generik untuk semua orang.',
-    en: 'Trip Planner tailors the itinerary to your budget, duration, and interests — not a generic one-size-fits-all recommendation.',
+    id: 'Trip Planner menyesuaikan itinerary dengan budget, durasi, dan minatmu, bukan rekomendasi generik untuk semua orang.',
+    en: 'Trip Planner tailors the itinerary to your budget, duration, and interests, not a generic one-size-fits-all recommendation.',
   },
   about_pillar3_title: { id: 'Untuk Semua Gaya Traveling', en: 'For Every Travel Style' },
   about_pillar3_body: {
@@ -261,8 +285,8 @@ export const translations = {
   about_status_body_before: { id: 'MeLokal adalah', en: 'MeLokal is a' },
   about_status_strong: { id: 'prototype/fungsional website', en: 'functional prototype website' },
   about_status_body_after: {
-    id: 'yang dikembangkan untuk keperluan perlombaan pengembangan website mahasiswa. Seluruh data destinasi, tempat, harga, dan Local Score pada website ini merupakan data contoh (demo) untuk simulasi konsep — bukan hasil riset lapangan real-time maupun direktori bisnis terverifikasi.',
-    en: 'developed for a student web development competition. All destination, place, price, and Local Score data on this website is sample (demo) data for concept simulation — not real-time field research or a verified business directory.',
+    id: 'yang dikembangkan untuk keperluan perlombaan pengembangan website mahasiswa. Seluruh data destinasi, tempat, harga, dan Local Score pada website ini merupakan data contoh (demo) untuk simulasi konsep, bukan hasil riset lapangan real-time maupun direktori bisnis terverifikasi.',
+    en: 'developed for a student web development competition. All destination, place, price, and Local Score data on this website is sample (demo) data for concept simulation, not real-time field research or a verified business directory.',
   },
   about_final_cta_title: { id: 'Siap mulai merasakan jadi lokal?', en: 'Ready to start feeling like a local?' },
 

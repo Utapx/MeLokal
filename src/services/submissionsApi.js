@@ -27,6 +27,10 @@ export async function deleteSubmission(id, token) {
   return request({ action: 'delete', id, token })
 }
 
+export async function updateSubmissionImage(id, imageUrl, token) {
+  return request({ action: 'updateImage', id, imageUrl, token })
+}
+
 export async function fetchSubmissions(token) {
   if (!API_URL) return []
   const url = new URL(API_URL)

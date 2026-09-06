@@ -1,4 +1,4 @@
-// Wrapper sederhana di atas localStorage — tidak butuh backend/database.
+// Wrapper sederhana di atas localStorage, tidak butuh backend/database.
 const FAVORITES_KEY = 'melokal_favorites'
 const JOURNEYS_KEY = 'melokal_journeys'
 
@@ -66,7 +66,7 @@ export function downloadJourney(journey, destinationName) {
       const slots = day.slots
         .map((slot) => {
           if (!slot.place) return `<li><strong>${escapeHtml(slot.time)}</strong> ${escapeHtml(slot.label)}</li>`
-          return `<li><strong>${escapeHtml(slot.time)}</strong> ${escapeHtml(slot.label)} — ${escapeHtml(slot.place.name)}<br><small>${escapeHtml(slot.place.priceRange)} · ${slot.distanceFromPrevious.toFixed(1)} km · ★ ${slot.place.localScore.toFixed(1)}<br><em>${escapeHtml(slot.place.quote)}</em></small></li>`
+          return `<li><strong>${escapeHtml(slot.time)}</strong> ${escapeHtml(slot.label)} ${escapeHtml(slot.place.name)}<br><small>${escapeHtml(slot.place.priceRange)} · ${slot.distanceFromPrevious.toFixed(1)} km · ★ ${slot.place.localScore.toFixed(1)}<br><em>${escapeHtml(slot.place.quote)}</em></small></li>`
         })
         .join('')
       return `<section><h2>Day ${day.dayNumber}</h2><p>Mulai: ${escapeHtml(day.startPoint.label)} · ${day.totalDistanceKm.toFixed(1)} km</p><ol>${slots}</ol></section>`

@@ -23,6 +23,10 @@ function doPost(event) {
     if (!isAdmin(body.token)) return jsonResponse({ ok: false, error: 'Unauthorized' }, 401)
     return removeSubmission(body.id)
   }
+  if (body.action === 'updateImage') {
+    if (!isAdmin(body.token)) return jsonResponse({ ok: false, error: 'Unauthorized' }, 401)
+    return updateImage(body.id, body.imageUrl)
+  }
   return jsonResponse({ ok: false, error: 'Unknown action' }, 400)
 }
 
@@ -66,6 +70,26 @@ function removeSubmission(id) {
   for (let index = 1; index < values.length; index += 1) {
     if (values[index][0] === id) {
       sheet.deleteRow(index + 1)
+      return jsonResponse({ ok: true })
+    }
+  }
+  return jsonResponse({ ok: false, error: 'Submission not found.' }, 404)
+}
+
+function updateImage(id, imageUrl) {
+  const value = String(imageUrl || '').trim()
+  if (value && !/^https?:\/\/\S+$/i.test(value)) {
+    return jsonResponse({ ok: false, error: 'Image URL tidak valid.' }, 400)
+  }
+
+  const sheet = getSheet()
+  const values = sheet.getDataRange().getValues()
+  const headers = values[0]
+  const idColumn = headers.indexOf('id')
+  const imageColumn = headers.indexOf('heroImage')
+  for (let index = 1; index < values.length; index += 1) {
+    if (values[index][idColumn] === id) {
+      sheet.getRange(index + 1, imageColumn + 1).setValue(value)
       return jsonResponse({ ok: true })
     }
   }

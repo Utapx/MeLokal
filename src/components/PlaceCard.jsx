@@ -7,6 +7,8 @@ import cultureImage from '../../Gambar/Gambar/Budaya dan Sejarah.jpg'
 import cafeImage from '../../Gambar/Gambar/Kopi Nongkrong.jpg'
 import shoppingImage from '../../Gambar/Gambar/Pasar Belanja.jpg'
 import hiddenGemImage from '../../Gambar/Gambar/temuan lokal.jpg'
+import { getLocalizedPriceRange, getLocalizedQuote } from '../utils/placeLocalization.js'
+import { getPlaceImageOverride } from '../utils/placeImages.js'
 
 function ScoreBar({ label, value }) {
   return (
@@ -34,9 +36,9 @@ const PLACE_IMAGES = {
 
 export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewDetails, compact = false }) {
   const meta = categoryMeta[place.category] || categoryMeta['hidden-gem']
-  const { t } = useLanguage()
+  const { lang, t } = useLanguage()
   const [imageFailed, setImageFailed] = useState(false)
-  const imageSrc = place.image || PLACE_IMAGES[place.category] || PLACE_IMAGES['hidden-gem']
+  const imageSrc = getPlaceImageOverride(place.id) || place.image || PLACE_IMAGES[place.category] || PLACE_IMAGES['hidden-gem']
   const localScore = Number(place.localScore)
   const score = Number.isFinite(localScore) ? localScore : 0
   const scores = place.scores || {
@@ -90,7 +92,7 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
         <p className="text-[10px] uppercase tracking-wide font-semibold text-sawah-dark flex items-center gap-1.5">
           <Quote size={12} /> {t('place_local_review')}
         </p>
-        <p className="text-sm text-ink-soft italic mt-1">&ldquo;{place.quote || 'Community-submitted local place.'}&rdquo;</p>
+        <p className="text-sm text-ink-soft italic mt-1">&ldquo;{getLocalizedQuote(place, lang)}&rdquo;</p>
       </div>
 
       <div className="flex flex-col gap-2 mt-4 text-sm bg-ink/5 p-3 rounded-xl border border-ink/5">
@@ -99,7 +101,7 @@ export default function PlaceCard({ place, isFavorite, onToggleFavorite, onViewD
             {t('place_local_score')} {score.toFixed(1)}
           </span>
           <span className="text-ink-soft">·</span>
-          <span className="text-sawah-dark font-medium truncate">{place.priceRange || '—'}</span>
+          <span className="text-sawah-dark font-medium truncate">{getLocalizedPriceRange(place, lang)}</span>
         </div>
 
         <div className="flex items-center gap-2">

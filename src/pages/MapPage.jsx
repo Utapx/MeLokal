@@ -62,7 +62,7 @@ export default function MapPage() {
       <div className="bg-sawah-light py-8 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           <h1 className="font-display text-2xl md:text-3xl font-semibold text-ink">
-            {t('map_title_prefix')} — {destination.name}
+            {t('map_title_prefix')} {destination.name}
           </h1>
           <p className="text-ink-soft text-sm mt-1">
             {t('map_subtitle')}

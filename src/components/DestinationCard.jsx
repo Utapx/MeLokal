@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import LocalScoreStamp from './LocalScoreStamp.jsx'
 import { useLanguage } from '../context/LanguageContext'
 
 export default function DestinationCard({ destination }) {
@@ -20,9 +19,6 @@ export default function DestinationCard({ destination }) {
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-        <div className="absolute top-3 right-3">
-          <LocalScoreStamp score={destination.localScore} size="sm" />
-        </div>
         <div className="absolute bottom-3 left-4 right-4 text-white">
           <p className="text-xs uppercase tracking-wide opacity-80">
             {lang === 'en' ? (destination.regionEn || destination.region) : destination.region}

@@ -50,6 +50,7 @@ export async function fetchLivePlaces(destination) {
         priceTier: 2,
         localScore: 3.8,
         quote: 'Tempat ditemukan dari OpenStreetMap. Cek jam buka dan ulasan terbaru sebelum berkunjung.',
+        quoteEn: 'A local place found on OpenStreetMap. Check the latest opening hours and reviews before visiting.',
         source: 'OpenStreetMap',
       }
     })

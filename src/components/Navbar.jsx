@@ -41,7 +41,9 @@ export default function Navbar() {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-sawah/10 hover:text-ink ${
+                `flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  link.to === '/plan' ? 'bg-turmeric/15 text-ink hover:bg-turmeric/25' : 'hover:bg-sawah/10 hover:text-ink'
+                } ${
                   isActive ? 'bg-sawah/10 text-sawah-dark' : 'text-ink-soft'
                 }`
               }
@@ -76,7 +78,7 @@ export default function Navbar() {
         aria-hidden="true"
       />
 
-      {/* Sidebar navigasi mobile — slide-in dari kanan */}
+      {/* Sidebar navigasi mobile slide-in dari kanan */}
       <aside
         className={`md:hidden fixed top-3 right-3 z-50 h-[calc(100vh-1.5rem)] w-72 max-w-[80%] overflow-hidden rounded-2xl bg-paper shadow-2xl transform transition-transform duration-300 ease-out flex flex-col ${
           open ? 'translate-x-0' : 'translate-x-full'
@@ -102,6 +104,8 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
                 `py-3 text-base font-medium border-b border-ink/5 ${
+                  link.to === '/plan' ? 'font-semibold bg-turmeric/10 rounded-lg px-3 text-ink' : ''
+                } ${
                   isActive ? 'text-sawah-dark' : 'text-ink-soft'
                 }`
               }

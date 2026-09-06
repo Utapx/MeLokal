@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { translations } from '../i18n/translations.js'
 
-const STORAGE_KEY = 'melokal:lang'
+const STORAGE_KEY = 'melokal:lang:v2'
 const LanguageContext = createContext(null)
 
 function getInitialLanguage() {
-  if (typeof window === 'undefined') return 'id'
+  if (typeof window === 'undefined') return 'en'
   const stored = window.localStorage.getItem(STORAGE_KEY)
-  return stored === 'en' || stored === 'id' ? stored : 'id'
+  return stored === 'en' || stored === 'id' ? stored : 'en'
 }
 
 export function LanguageProvider({ children }) {

@@ -46,7 +46,7 @@ export const tipsEn = {
       { term: 'Monggo', meaning: 'Please go ahead, a polite invitation.' },
       { term: 'Pripun kabare?', meaning: 'How are you?' },
       { term: 'Mboten', meaning: 'No / not, in a polite form.' },
-      { term: 'Alon-alon waton kelakon', meaning: 'Slowly but surely — a local life philosophy.' },
+      { term: 'Alon-alon waton kelakon', meaning: 'Slowly but surely a local life philosophy.' },
       { term: 'Suwun', meaning: 'Thank you, in a shortened informal form.' },
     ],
     food: [

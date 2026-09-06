@@ -33,7 +33,7 @@ export const tips = {
       'Datang ke warung makan saat jam makan warga (11.00 atau 18.00), bukan jam wisatawan.',
       'Naik ke Bukit Moko pagi-pagi sebelum jam 6 untuk suasana paling tenang.',
       'Simpan uang receh untuk ongkos angkot, sopir jarang punya banyak kembalian besar.',
-      'Cuaca Bandung cepat berubah — selalu bawa jaket tipis meski siang terik.',
+      'Cuaca Bandung cepat berubah, selalu bawa jaket tipis meski siang terik.',
       'Ikuti akun media sosial komunitas lokal untuk info event kampung kreatif.',
     ],
     liveLikeLocal: {
@@ -48,7 +48,7 @@ export const tips = {
       { term: 'Monggo', meaning: 'Silakan, sapaan sopan khas Yogya' },
       { term: 'Pripun kabare?', meaning: 'Apa kabar?' },
       { term: 'Mboten', meaning: 'Tidak (bentuk halus)' },
-      { term: 'Alon-alon waton kelakon', meaning: 'Pelan-pelan asal sampai — filosofi hidup orang Yogya' },
+      { term: 'Alon-alon waton kelakon', meaning: 'Pelan-pelan asal sampai, filosofi hidup orang Yogya' },
       { term: 'Suwun', meaning: 'Terima kasih (bentuk singkat)' },
     ],
     food: [
@@ -68,7 +68,7 @@ export const tips = {
       'Bertanya arah dengan sopan, warga Yogya senang membantu bila didekati baik-baik.',
     ],
     dontDo: [
-      'Jangan terburu-buru naik kendaraan — banyak area lebih menarik ditelusuri jalan kaki.',
+      'Jangan terburu-buru naik kendaraan, banyak area lebih menarik ditelusuri jalan kaki.',
       'Jangan berisik berlebihan di area kampung/keraton.',
       'Jangan mengabaikan antrean di angkringan yang ramai warga lokal.',
     ],
@@ -108,7 +108,7 @@ export const tips = {
     etiquette: [
       'Kenakan pakaian sopan saat memasuki area pura.',
       'Jangan melangkahi sesajen (canang sari) yang diletakkan di jalan.',
-      'Hormati waktu upacara/Nyepi — kurangi aktivitas mencolok saat prosesi berlangsung.',
+      'Hormati waktu upacara/Nyepi, kurangi aktivitas mencolok saat prosesi berlangsung.',
     ],
     dontDo: [
       'Jangan menyentuh kepala orang lain, dianggap bagian tubuh yang disucikan.',
@@ -120,7 +120,7 @@ export const tips = {
       'Sapa dengan "Om Swastiastu" akan disambut hangat oleh warga.',
       'Ikuti aturan berpakaian (kain & selendang) meski hanya sekadar lewat area pura.',
       'Desa-desa di luar jalur utama biasanya harga makanannya jauh lebih wajar.',
-      'Perhatikan hari raya lokal — beberapa jalan bisa ditutup untuk upacara adat.',
+      'Perhatikan hari raya lokal, beberapa jalan bisa ditutup untuk upacara adat.',
     ],
     liveLikeLocal: {
       headline: 'Pahami etika saat memasuki area tertentu.',
@@ -153,16 +153,16 @@ export const tips = {
       'Sapa sopan ke pedagang kaki lima sebelum menawar.',
     ],
     dontDo: [
-      'Jangan naik ojek online dari titik yang bukan pick-up point resmi di mal — bisa kena biaya tambahan.',
+      'Jangan naik ojek online dari titik yang bukan pick-up point resmi di mal, bisa kena biaya tambahan.',
       'Jangan berhenti mendadak di jalur pejalan kaki yang padat.',
-      'Jangan kaget dengan macet — sisakan waktu ekstra di setiap perjalanan.',
+      'Jangan kaget dengan macet, sisakan waktu ekstra di setiap perjalanan.',
     ],
     localTips: [
       'Naik KRL di luar jam sibuk (10.00–15.00) jauh lebih nyaman untuk turis.',
       'Indonesia Kaya Park punya gerbang mural karya seniman muda Semarang dan ruang untuk kegiatan seni komunitas.',
       'Cek titik jemput ojek online resmi saat berada di dalam mal besar.',
       'Pasar pagi paling ramai & otentik sebelum jam 8 pagi.',
-      'Bawa payung kecil — hujan Jakarta bisa datang tiba-tiba di musim tertentu.',
+      'Bawa payung kecil, hujan Jakarta bisa datang tiba-tiba di musim tertentu.',
     ],
     liveLikeLocal: {
       icon: '🚇',

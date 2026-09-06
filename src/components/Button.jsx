@@ -5,6 +5,7 @@ const VARIANTS = {
   primary: 'bg-turmeric text-ink hover:bg-turmeric-dark shadow-soft',
   secondary: 'bg-sawah text-white hover:bg-sawah-dark shadow-soft',
   ghost: 'bg-transparent text-ink border border-ink/20 hover:border-ink/50',
+  soft: 'bg-sawah-light text-sawah-dark border border-sawah/20 hover:bg-sawah/15 hover:border-sawah/40',
   outline: 'bg-transparent text-white border border-white/70 hover:bg-white/10',
 }
 

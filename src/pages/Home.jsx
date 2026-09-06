@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, MapPin, Compass, Route, Sparkles } from 'lucide-react'
+import { Search, MapPin, Compass, Route, Sparkles, ArrowRight } from 'lucide-react'
 import Section from '../components/Section.jsx'
 import Button from '../components/Button.jsx'
 import DestinationCard from '../components/DestinationCard.jsx'
@@ -26,10 +26,12 @@ export default function Home() {
       <section className="hero-local relative overflow-hidden text-paper">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_20%,white,transparent_45%)]" />
         <div className="relative max-w-5xl mx-auto px-6 md:px-12 pt-24 pb-28 text-center animate-fadeIn">
-          <span className="inline-flex items-center gap-2 bg-white/10 border border-white/25 rounded-full px-4 py-1.5 text-xs uppercase tracking-widest mb-6">
-            <Compass size={14} /> {t('home_hero_badge')}
-          </span>
-          <BrandLogo className="justify-center text-white text-5xl md:text-7xl" iconClassName="text-turmeric" />
+          <div className="flex flex-col items-center">
+            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/25 rounded-full px-4 py-1.5 text-xs uppercase tracking-widest">
+              <Compass size={14} /> {t('home_hero_badge')}
+            </span>
+            <BrandLogo showIcon={false} className="mt-5 justify-center text-white text-5xl md:text-7xl" />
+          </div>
           <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto italic">
             {t('home_hero_quote')}
           </p>
@@ -46,8 +48,19 @@ export default function Home() {
             <Button type="submit" variant="secondary">{t('home_search_button')}</Button>
           </form>
 
-          <div className="mt-8">
-            <Button to="/explore" variant="outline">{t('home_explore_indonesia')}</Button>
+          <div className="mt-10 border-t border-white/15 pt-8 flex flex-col items-center gap-3">
+            <Button
+              to="/plan"
+              variant="primary"
+              icon={ArrowRight}
+              className="min-w-[210px] px-7 py-4 text-base shadow-lg hover:-translate-y-0.5"
+            >
+              <span className="inline-flex items-center gap-2">
+                <Sparkles size={17} aria-hidden="true" />
+                {t('home_plan_trip_cta')}
+              </span>
+            </Button>
+            <p className="max-w-md text-sm text-white/70">{t('home_plan_trip_cue')}</p>
           </div>
         </div>
       </section>
@@ -59,6 +72,9 @@ export default function Home() {
           <br />
           <span className="text-sawah-dark">{t('home_storytelling_line2')}</span>
         </p>
+        <div className="mt-8">
+          <Button to="/explore" variant="soft">{t('home_explore_indonesia')}</Button>
+        </div>
       </Section>
 
       {/* PROBLEM -> SOLUTION */}
@@ -100,6 +116,29 @@ export default function Home() {
           {destinations.map((d) => (
             <DestinationCard key={d.slug} destination={d} />
           ))}
+        </div>
+      </Section>
+
+      {/* DISCOVERY -> PLANNING TRANSITION */}
+      <Section className="pt-0 md:pt-0">
+        <div className="border-t border-ink/10 pt-10 md:pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex items-start gap-4">
+            <Route className="text-turmeric-dark mt-1 shrink-0" size={26} aria-hidden="true" />
+            <div>
+              <p className="text-xs uppercase tracking-wide text-turmeric-dark font-semibold mb-2">
+                {t('home_discovery_planner_eyebrow')}
+              </p>
+              <h2 className="font-display text-2xl md:text-3xl font-semibold text-ink">
+                {t('home_discovery_planner_title')}
+              </h2>
+              <p className="text-ink-soft mt-2 max-w-xl text-sm">
+                {t('home_discovery_planner_body')}
+              </p>
+            </div>
+          </div>
+          <Button to="/plan" variant="secondary" className="shrink-0">
+            {t('home_discovery_planner_cta')}
+          </Button>
         </div>
       </Section>
 

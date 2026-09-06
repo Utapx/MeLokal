@@ -1,4 +1,4 @@
-// Rule-based itinerary generator — TIDAK menggunakan AI API,
+// Rule-based itinerary generator, TIDAK menggunakan AI API,
 // murni logika IF/ELSE + scoring sederhana di atas data lokal statis.
 import { getPlacesByDestination } from '../data/places.js'
 import { getDestinationBySlug } from '../data/destinations.js'

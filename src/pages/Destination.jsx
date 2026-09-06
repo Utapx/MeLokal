@@ -75,9 +75,9 @@ export default function Destination() {
             </div>
             <ul className="space-y-2">
               {t.language.map((l) => (
-                <li key={l.term} className="text-sm">
+                <li key={l.term} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm">
                   <span className="font-semibold text-ink">{l.term}</span>
-                  <span className="text-ink-soft"> — {l.meaning}</span>
+                  <span className="text-ink-soft">{l.meaning}</span>
                 </li>
               ))}
             </ul>
